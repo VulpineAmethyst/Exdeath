@@ -1,0 +1,10 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+	<qresource>
+		<file>patches/fiesta.ips</file>
+		<file>patches/balance.ips</file>
+		<file>patches/portraits.ips</file>
+		<file>patches/double_ap.ips</file>
+		<file>patches/sound_restoration.ips</file>
+	</qresource>
+</RCC>

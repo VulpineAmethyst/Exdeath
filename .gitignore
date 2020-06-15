@@ -1,0 +1,5 @@
+.qmake.stash
+*.o
+qrc_*
+Makefile
+exdeath.app
