@@ -106,8 +106,6 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	target->open(QIODevice::WriteOnly | QIODevice::Append);
 	target->seek(0);
 
-	printf("Size of target is 0x%08llx.\n", target->size());
-
 	for (int i = 0; i < patches.size(); i++) {
 		applyPatch(target, patches[i]);
 	}
@@ -118,7 +116,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 void Exdeath::applyPatch(QFile *file, QString patch) {
 	QFile *data = new QFile(patch);
 	data->open(QIODevice::ReadOnly);
-	char *temp = reinterpret_cast<char *>(malloc(1024));
+	char *temp = reinterpret_cast<char *>(malloc(65536));
 
 	data->read(temp, 5);
 
@@ -128,31 +126,26 @@ void Exdeath::applyPatch(QFile *file, QString patch) {
 		return;
 	}
 
-	printf("Applying patch %s...\n", patch.toStdString().c_str());
-
 	while (!data->atEnd()) {
 		unsigned int seek = 0, length = 0;
-		data->read(temp, 3);
 		if (!strncmp(temp, "EOF", 3)) {
 			break;
 		}
-		seek = (temp[0] << 16) + (temp[1] << 8) + temp[2];
+		seek = ((temp[0] & 0xff) << 16) + ((temp[1] & 0xff) << 8) + (temp[2] & 0xff);
 		data->read(temp, 2);
-		length = (temp[0] << 8) + temp[1];
+		length = ((temp[0] & 0xff) << 8) + (temp[1] & 0xff);
 
 		if (length == 0) {
 			// RLE hunk
 			data->read(temp, 2);
-			length = (temp[0] << 8) + temp[1];
+			length = ((temp[0] & 0xff) << 8) + (temp[1] & 0xff);
 			data->read(temp, 1);
 
-			printf("Seeking to 0x%08x and writing %u RLE bytes\n", seek, length);
 			file->seek(seek);
 			for (unsigned int i = 0; i < length; i++) {
 				file->write(temp, 1);
 			}
 		} else {
-			printf("Seeking to 0x%08x and writing %u bytes\n", seek, length);
 			data->read(temp, length);
 			file->seek(seek);
 			file->write(temp, length);
