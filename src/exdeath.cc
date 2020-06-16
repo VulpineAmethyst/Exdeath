@@ -1,7 +1,8 @@
 
 #include "exdeath.hh"
 #include <cstring>
-#include <iostream>
+#include <cstdlib>
+#include <cstdio>
 
 Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	error = new QErrorMessage();
@@ -105,7 +106,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	target->open(QIODevice::WriteOnly | QIODevice::Append);
 	target->seek(0);
 
-	std::cout << "Size of target is " << target->size() << std::endl;
+	printf("Size of target is 0x%08llx.\n", target->size());
 
 	for (int i = 0; i < patches.size(); i++) {
 		applyPatch(target, patches[i]);
@@ -117,25 +118,20 @@ void Exdeath::btnApply_clicked(bool trigger) {
 void Exdeath::applyPatch(QFile *file, QString patch) {
 	QFile *data = new QFile(patch);
 	data->open(QIODevice::ReadOnly);
-	char *temp = nullptr;
+	char *temp = reinterpret_cast<char *>(malloc(1024));
 
-	if (data->read(temp, 5) != 5) {
-		std::cout << "what the fuck?" << std::endl;
+	data->read(temp, 5);
+
+	if (strncmp(temp, "PATCH", 5)) {
+		// not a patch
 		data->close();
 		return;
 	}
 
-	std::cout << "Just read " << temp << std::endl;
-
-	if (!strncmp(temp, "PATCH", 5)) {
-		data->close();
-		return;
-	}
-
-	std::cout << "Applying patch '" << patch.toStdString() << "'..." << std::endl;
+	printf("Applying patch %s...\n", patch.toStdString().c_str());
 
 	while (!data->atEnd()) {
-		int seek = 0, length = 0;
+		unsigned int seek = 0, length = 0;
 		data->read(temp, 3);
 		if (!strncmp(temp, "EOF", 3)) {
 			break;
@@ -150,18 +146,19 @@ void Exdeath::applyPatch(QFile *file, QString patch) {
 			length = (temp[0] << 8) + temp[1];
 			data->read(temp, 1);
 
-			std::cout << "Seeking to " << seek << " and writing " << length << " RLE bytes." << std::endl;
+			printf("Seeking to 0x%08x and writing %u RLE bytes\n", seek, length);
 			file->seek(seek);
-			for (int i = 0; i < length; i++) {
+			for (unsigned int i = 0; i < length; i++) {
 				file->write(temp, 1);
 			}
 		} else {
-			std::cout << "Seeking to " << seek << " and writing " << length << " bytes";
+			printf("Seeking to 0x%08x and writing %u bytes\n", seek, length);
 			data->read(temp, length);
 			file->seek(seek);
 			file->write(temp, length);
 		}
 	}
 
+	file->flush();
 	data->close();
 }
