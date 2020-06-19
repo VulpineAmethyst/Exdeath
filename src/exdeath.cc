@@ -156,7 +156,6 @@ void Exdeath::applyPatch(QFile *file, QString patch) {
 		}
 
 		seek = ((temp[0] & 0xff) << 16) + ((temp[1] & 0xff) << 8) + (temp[2] & 0xff);
-		printf("Seeking to 0x%06x", seek);
 		file->seek(seek);
 		data->read(temp, 2);
 		length = ((temp[0] & 0xff) << 8) + (temp[1] & 0xff);
@@ -166,18 +165,13 @@ void Exdeath::applyPatch(QFile *file, QString patch) {
 			data->read(temp, 2);
 			length = ((temp[0] & 0xff) << 8) + (temp[1] & 0xff);
 			data->read(temp, 1);
-			printf(", now at 0x%08llx", file->pos());
-			printf(" and writing 0x%04hx bytes of 0x%02hhx\n", length, temp[0]);
 
 			for (unsigned int i = 0; i < length; i++) {
 				file->write(temp, 1);
 			}
-			printf("position after write: 0x%08llx\n", file->pos());
 		} else {
-			printf(" and writing 0x%04hx bytes\n", length);
 			data->read(temp, length);
 			file->write(temp, length);
-			printf("position after write: 0x%08llx\n", file->pos());
 		}
 	}
 
