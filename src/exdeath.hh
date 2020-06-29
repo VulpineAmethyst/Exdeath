@@ -40,6 +40,7 @@ private:
 	QRadioButton *radBase;
 	QRadioButton *radFiesta;
 	QRadioButton *radBalance;
+	QRadioButton *radCClass;
 
 	QCheckBox *chkPortraits;
 	QCheckBox *chkAP;

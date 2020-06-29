@@ -9,7 +9,7 @@
  *    * Redistributions in binary form must reproduce the above copyright
  *      notice, this list of conditions and the following disclaimer in the
  *      documentation and/or other materials provided with the distribution.
- *    * Neither the name of the <organization> nor the
+ *    * Neither the name of the software nor the
  *      names of its contributors may be used to endorse or promote products
  *      derived from this software without specific prior written permission.
  *
@@ -50,10 +50,12 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	radBase    = new QRadioButton("Base");
 	radFiesta  = new QRadioButton("Fiesta");
 	radBalance = new QRadioButton("Balance");
+	radCClass  = new QRadioButton("Custom Classes");
 	radBase->setChecked(true);
 	layMode->addWidget(radBase);
 	layMode->addWidget(radFiesta);
 	layMode->addWidget(radBalance);
+	layMode->addWidget(radCClass);
 
 	chkPortraits = new QCheckBox("Yes");
 	chkAP        = new QCheckBox("Yes");
@@ -113,6 +115,9 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		patches << ":/patches/fiesta.ips";
 	} else if (radBalance->isChecked()) {
 		patches << ":/patches/balance.ips";
+	} else if (radCClass->isChecked()) {
+		patches << ":/patches/custom_classes.ips";
+		patches << ":/patches/cc_spellblade.ips";
 	}
 	if (chkPortraits->isChecked()) {
 		patches << ":/patches/portraits.ips";
