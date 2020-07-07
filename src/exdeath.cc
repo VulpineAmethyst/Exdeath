@@ -153,7 +153,7 @@ void Exdeath::applyPatch(QFile *file, QString patch) {
 	while (!data->atEnd()) {
 		unsigned int seek = 0;
 		unsigned short length = 0;
-		char *temp = reinterpret_cast<char *>(malloc(65536));
+		char temp[65536];
 
 		data->read(temp, 3);
 		if (!strncmp(temp, "EOF", 3)) {
