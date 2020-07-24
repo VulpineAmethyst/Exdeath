@@ -19,3 +19,4 @@ Exdeath is licensed under BSD-3-Clause; see `LICENSE.md` for the license terms. 
 * The [Sound Restoration patch](http://www.romhacking.net/hacks/563/) was developed by Bregalad.
 * The [Fiesta](https://www.dropbox.com/s/ldlmpoepxk5nxgl/fiesta.ups?dl=0) and ['balance'](https://www.dropbox.com/s/g52xshu0juaa2c7/ffvamod-doc.txt?dl=0) patches were developed by WormOfCans.
 * The [Double AP patch](https://drive.google.com/file/d/1kQeTEu55-Pt_0-fLSYIeUW50LxW6CcLN/view?usp=sharing) was developed by Kheldarn from SomethingAwful.
+* The [Custom Classes patch](http://jeffludwig.com/ff5a/download.php) was made by Jeff Ludwig.
