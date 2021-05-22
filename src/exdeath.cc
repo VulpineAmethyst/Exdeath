@@ -34,9 +34,20 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	error = new QErrorMessage();
 	filename = nullptr;
 
+	layContainer = new QVBoxLayout(this);
+
 	layMain = new QGridLayout(this);
 	layMode = new QVBoxLayout(this);
+	layDemi = new QVBoxLayout(this);
 
+	grpMain = new QGroupBox("Main");
+	grpMain->setLayout(layMain);
+	grpDemi = new QGroupBox("Innate abilities");
+	grpDemi->setLayout(layDemi);
+	layContainer->addWidget(grpMain);
+	layContainer->addWidget(grpDemi);
+
+	// Main options
 	txtROM       = new QLabel("ROM:");
 	txtMode      = new QLabel("Mode:");
 	txtPortraits = new QLabel("FFT-style Portraits:");
@@ -46,6 +57,7 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 
 	btnROM   = new QPushButton("Select ROM");
 	btnApply = new QPushButton("Apply");
+	layContainer->addWidget(btnApply);
 
 	radBase    = new QRadioButton("Base");
 	radFiesta  = new QRadioButton("Fiesta");
@@ -71,8 +83,18 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	layMain->addWidget(chkAP, 3, 1);
 	layMain->addWidget(txtSound, 4, 0);
 	layMain->addWidget(chkSound, 4, 1);
-	layMain->addWidget(btnApply, 5, 1);
 
+	// Project Demi options
+	chkPassages = new QCheckBox("Innate Passages");
+	chkPitfalls = new QCheckBox("Innate Pitfalls");
+	chkLiteStep = new QCheckBox("Innate Light Step");
+	chkDash     = new QCheckBox("Innate Dash");
+	chkLearning = new QCheckBox("Innate Learning");
+	layDemi->addWidget(chkPassages);
+	layDemi->addWidget(chkPitfalls);
+	layDemi->addWidget(chkLiteStep);
+	layDemi->addWidget(chkDash);
+	layDemi->addWidget(chkLearning);
 	connect(btnROM, &QPushButton::clicked, this, &Exdeath::btnROM_clicked);
 	connect(btnApply, &QPushButton::clicked, this, &Exdeath::btnApply_clicked);
 }
@@ -129,17 +151,16 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		patches << ":/patches/sound_restoration.ips";
 	}
 
-	if (patches.size() == 0) {
-		return;
-	}
-
 	target = new QFile(output);
 	target->open(QIODevice::ReadWrite);
-
-	for (int i = 0; i < patches.size(); i++) {
-		applyPatch(target, patches[i]);
+	if (patches.size() != 0) {
+		for (int i = 0; i < patches.size(); i++) {
+			applyPatch(target, patches[i]);
+		}
 	}
-
+	if (chkPassages->isChecked() || chkPitfalls->isChecked() || chkLiteStep->isChecked() || chkDash->isChecked() || chkLearning->isChecked()) {
+		applyDemi(target);
+	}
 	target->close();
 }
 
@@ -182,4 +203,27 @@ void Exdeath::applyPatch(QFile *file, QString patch) {
 
 	file->flush();
 	data->close();
+}
+void Exdeath::applyDemi(QFile *file) {
+	unsigned char base = 0;
+
+	if (!(radBase->isChecked() || radFiesta->isChecked())) {
+		error->showMessage("You must use Base or Fiesta to use these options.");
+		return;
+	}
+
+	if (chkPassages->isChecked()) base |= Job::Passages;
+	if (chkPitfalls->isChecked()) base |= Job::Pitfalls;
+	if (chkLiteStep->isChecked()) base |= Job::LiteStep;
+	if (chkDash->isChecked())     base |= Job::Dash;
+	if (chkLearning->isChecked()) base |= Job::Learning;
+
+	for (int i = 0; i < 26; i++) {
+		char temp[2];
+		file->seek(job_innates + (i * 2));
+		file->read(temp, 2);
+		temp[0] |= base;
+		file->seek(job_innates + (i * 2));
+		file->write(temp, 2);
+	}
 }

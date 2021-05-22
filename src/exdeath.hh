@@ -1,19 +1,22 @@
 #ifndef EXDEATH_HH_GUARD
 #define EXDEATH_HH_GUARD
 
-#include <QWidget>
+#include <QCheckBox>
+#include <QCryptographicHash>
+#include <QErrorMessage>
+#include <QFile>
+#include <QFileDialog>
 #include <QGridLayout>
-#include <QVBoxLayout>
+#include <QGroupBox>
+#include <QIODevice>
 #include <QLabel>
 #include <QPushButton>
 #include <QRadioButton>
-#include <QCheckBox>
-#include <QFileDialog>
 #include <QStandardPaths>
-#include <QFile>
-#include <QIODevice>
-#include <QCryptographicHash>
-#include <QErrorMessage>
+#include <QVBoxLayout>
+#include <QWidget>
+
+#include "data.hh"
 
 class Exdeath : public QWidget {
 public:
@@ -25,8 +28,10 @@ private:
 
 	QErrorMessage *error;
 
+	QVBoxLayout *layContainer;
 	QGridLayout *layMain;
 	QVBoxLayout *layMode;
+	QGroupBox *grpMain;
 
 	QLabel *txtROM;
 	QLabel *txtMode;
@@ -46,9 +51,19 @@ private:
 	QCheckBox *chkAP;
 	QCheckBox *chkSound;
 
+	QGroupBox *grpDemi;
+	QVBoxLayout *layDemi;
+	
+	QCheckBox *chkPassages;
+	QCheckBox *chkPitfalls;
+	QCheckBox *chkLiteStep;
+	QCheckBox *chkDash;
+	QCheckBox *chkLearning;
+
 	void btnROM_clicked(bool trigger);
 	void btnApply_clicked(bool trigger);
 	void applyPatch(QFile *file, QString patch);
+	void applyDemi(QFile *file);
 };
 
 #endif
