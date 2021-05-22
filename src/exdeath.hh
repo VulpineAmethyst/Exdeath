@@ -2,6 +2,7 @@
 #define EXDEATH_HH_GUARD
 
 #include <QCheckBox>
+#include <QComboBox>
 #include <QCryptographicHash>
 #include <QErrorMessage>
 #include <QFile>
@@ -38,6 +39,7 @@ private:
 	QLabel *txtPortraits;
 	QLabel *txtAP;
 	QLabel *txtSound;
+	QLabel *txtNED;
 
 	QPushButton *btnROM;
 	QPushButton *btnApply;
@@ -50,6 +52,8 @@ private:
 	QCheckBox *chkPortraits;
 	QCheckBox *chkAP;
 	QCheckBox *chkSound;
+
+	QComboBox *selNED;
 
 	QGroupBox *grpDemi;
 	QVBoxLayout *layDemi;

@@ -54,6 +54,7 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	txtAP        = new QLabel("Double AP:");
 	txtSound     = new QLabel("Sound Restoration:");
 	txtSound->setToolTip("Requires GBA BIOS if using VisualBoyAdvance");
+	txtNED       = new QLabel("Neo ExDeath:");
 
 	btnROM   = new QPushButton("Select ROM");
 	btnApply = new QPushButton("Apply");
@@ -73,6 +74,11 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	chkAP        = new QCheckBox("Yes");
 	chkSound     = new QCheckBox("Yes");
 
+	selNED = new QComboBox();
+	selNED->addItem("Vanilla");
+	selNED->setCurrentIndex(0);
+	selNED->addItem("Cactuar", "cactuar.ips");
+
 	layMain->addWidget(txtROM, 0, 0);
 	layMain->addWidget(btnROM, 0, 1);
 	layMain->addWidget(txtMode, 1, 0);
@@ -83,6 +89,8 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	layMain->addWidget(chkAP, 3, 1);
 	layMain->addWidget(txtSound, 4, 0);
 	layMain->addWidget(chkSound, 4, 1);
+	layMain->addWidget(txtNED, 5, 0);
+	layMain->addWidget(selNED, 5, 1);
 
 	// Project Demi options
 	chkPassages = new QCheckBox("Innate Passages");
@@ -134,7 +142,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	QFile::copy(filename, output);
 
 	if (radFiesta->isChecked()) {
-		patches << ":/patches/fiesta.ips";
+		patches << ":/patches/unlock.ips";
 	} else if (radBalance->isChecked()) {
 		patches << ":/patches/balance.ips";
 	} else if (radCClass->isChecked()) {
@@ -149,6 +157,11 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	}
 	if (chkSound->isChecked()) {
 		patches << ":/patches/sound_restoration.ips";
+	}
+	if (selNED->currentIndex() != 0) {
+		QString temp = QString(":/patches/ned/");
+		temp.append(selNED->currentData().toString());
+		patches << temp;
 	}
 
 	target = new QFile(output);

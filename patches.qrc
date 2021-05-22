@@ -1,12 +1,13 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
 	<qresource>
-		<file>patches/fiesta.ips</file>
+		<file>patches/unlock.ips</file>
 		<file>patches/balance.ips</file>
 		<file>patches/custom_classes.ips</file>
 		<file>patches/cc_spellblade.ips</file>
 		<file>patches/portraits.ips</file>
 		<file>patches/double_ap.ips</file>
 		<file>patches/sound_restoration.ips</file>
+		<file>patches/ned/cactuar.ips</file>
 	</qresource>
 </RCC>
