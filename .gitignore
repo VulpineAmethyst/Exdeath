@@ -1,3 +1,4 @@
+.vscode/
 .qmake.stash
 *.o
 qrc_*
