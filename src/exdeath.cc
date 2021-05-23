@@ -34,18 +34,20 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	error = new QErrorMessage();
 	filename = nullptr;
 
-	layContainer = new QVBoxLayout(this);
+	layApp = new QVBoxLayout(this);
+	layColumns = new QVBoxLayout(this);
+	layApp->addLayout(layColumns);
 
 	layMain = new QGridLayout(this);
 	layMode = new QVBoxLayout(this);
-	layDemi = new QVBoxLayout(this);
+	layInnates = new QVBoxLayout(this);
 
 	grpMain = new QGroupBox("Main");
 	grpMain->setLayout(layMain);
-	grpDemi = new QGroupBox("Innate abilities");
-	grpDemi->setLayout(layDemi);
-	layContainer->addWidget(grpMain);
-	layContainer->addWidget(grpDemi);
+	grpInnates = new QGroupBox("Innate abilities");
+	grpInnates->setLayout(layInnates);
+	layColumns->addWidget(grpMain);
+	layColumns->addWidget(grpInnates);
 
 	// Main options
 	txtROM       = new QLabel("ROM:");
@@ -58,10 +60,10 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 
 	btnROM   = new QPushButton("Select ROM");
 	btnApply = new QPushButton("Apply");
-	layContainer->addWidget(btnApply);
+	layApp->addWidget(btnApply);
 
 	radBase    = new QRadioButton("Base");
-	radFiesta  = new QRadioButton("Fiesta");
+	radFiesta  = new QRadioButton("Jobs Unlocked");
 	radBalance = new QRadioButton("Balance");
 	radCClass  = new QRadioButton("Custom Classes");
 	radBase->setChecked(true);
@@ -98,11 +100,12 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	chkLiteStep = new QCheckBox("Innate Light Step");
 	chkDash     = new QCheckBox("Innate Dash");
 	chkLearning = new QCheckBox("Innate Learning");
-	layDemi->addWidget(chkPassages);
-	layDemi->addWidget(chkPitfalls);
-	layDemi->addWidget(chkLiteStep);
-	layDemi->addWidget(chkDash);
-	layDemi->addWidget(chkLearning);
+	layInnates->addWidget(chkPassages);
+	layInnates->addWidget(chkPitfalls);
+	layInnates->addWidget(chkLiteStep);
+	layInnates->addWidget(chkDash);
+	layInnates->addWidget(chkLearning);
+
 	connect(btnROM, &QPushButton::clicked, this, &Exdeath::btnROM_clicked);
 	connect(btnApply, &QPushButton::clicked, this, &Exdeath::btnApply_clicked);
 }

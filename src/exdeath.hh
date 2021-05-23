@@ -29,7 +29,9 @@ private:
 
 	QErrorMessage *error;
 
-	QVBoxLayout *layContainer;
+	QVBoxLayout *layApp;
+	QVBoxLayout *layColumns;
+
 	QGridLayout *layMain;
 	QVBoxLayout *layMode;
 	QGroupBox *grpMain;
@@ -55,8 +57,8 @@ private:
 
 	QComboBox *selNED;
 
-	QGroupBox *grpDemi;
-	QVBoxLayout *layDemi;
+	QGroupBox *grpInnates;
+	QVBoxLayout *layInnates;
 	
 	QCheckBox *chkPassages;
 	QCheckBox *chkPitfalls;
