@@ -49,11 +49,7 @@ private:
 	QPushButton *btnROM;
 	QPushButton *btnApply;
 
-	QButtonGroup *butsMode;
-	QRadioButton *radBase;
-	QRadioButton *radFiesta;
-	QRadioButton *radBalance;
-	QRadioButton *radCClass;
+	QComboBox *selMode;
 
 	QCheckBox *chkPortraits;
 	QCheckBox *chkAP;

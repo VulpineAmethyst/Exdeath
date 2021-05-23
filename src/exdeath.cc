@@ -69,20 +69,12 @@ void Exdeath::initMain(void) {
 	btnApply = new QPushButton("Apply");
 	layApp->addWidget(btnApply);
 
-	butsMode   = new QButtonGroup();
-	radBase    = new QRadioButton("Base");
-	butsMode->addButton(radBase);
-	radFiesta  = new QRadioButton("Jobs Unlocked");
-	butsMode->addButton(radFiesta);
-	radBalance = new QRadioButton("Balance");
-	butsMode->addButton(radBalance);
-	radCClass  = new QRadioButton("Custom Classes");
-	butsMode->addButton(radCClass);
-	radBase->setChecked(true);
-	layMode->addWidget(radBase);
-	layMode->addWidget(radFiesta);
-	layMode->addWidget(radBalance);
-	layMode->addWidget(radCClass);
+	selMode = new QComboBox();
+	selMode->addItem("Base");
+	selMode->addItem("Unlocked Jobs");
+	selMode->addItem("Balance");
+	selMode->addItem("Custom Classes");
+	selMode->addItem("Waddler Balance");
 
 	chkPortraits = new QCheckBox("Yes");
 	chkAP        = new QCheckBox("Yes");
@@ -96,7 +88,7 @@ void Exdeath::initMain(void) {
 	layMain->addWidget(txtROM, 0, 0);
 	layMain->addWidget(btnROM, 0, 1);
 	layMain->addWidget(txtMode, 1, 0);
-	layMain->addLayout(layMode, 1, 1);
+	layMain->addWidget(selMode, 1, 1);
 	layMain->addWidget(txtPortraits, 2, 0);
 	layMain->addWidget(chkPortraits, 2, 1);
 	layMain->addWidget(txtAP, 3, 0);
@@ -191,12 +183,13 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		"GBA ROM images (*.gba)"
 	);
 	QFile::copy(filename, output);
+	QString mode = selMode->currentText();
 
-	if (radFiesta->isChecked()) {
+	if (mode.compare("Unlocked Jobs")) {
 		patches << ":/patches/unlock.ips";
-	} else if (radBalance->isChecked()) {
+	} else if (mode.compare("Balance")) {
 		patches << ":/patches/balance.ips";
-	} else if (radCClass->isChecked()) {
+	} else if (mode.compare("Custom Classes")) {
 		patches << ":/patches/custom_classes.ips";
 		patches << ":/patches/cc_spellblade.ips";
 	}
@@ -270,8 +263,9 @@ void Exdeath::applyPatch(QFile *file, QString patch) {
 }
 void Exdeath::applyInnates(QFile *file) {
 	unsigned char base = 0;
+	QString mode = selMode->currentText();
 
-	if (!(radBase->isChecked() || radFiesta->isChecked())) {
+	if (!(mode.compare("Base") || mode.compare("Unlocked Jobs"))) {
 		error->showMessage("You must use Base or Fiesta to use these options.");
 		return;
 	}
