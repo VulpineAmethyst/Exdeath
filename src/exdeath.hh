@@ -1,12 +1,14 @@
 #ifndef EXDEATH_HH_GUARD
 #define EXDEATH_HH_GUARD
 
+#include <QButtonGroup>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QCryptographicHash>
 #include <QErrorMessage>
 #include <QFile>
 #include <QFileDialog>
+#include <QFormLayout>
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QIODevice>
@@ -30,7 +32,8 @@ private:
 	QErrorMessage *error;
 
 	QVBoxLayout *layApp;
-	QVBoxLayout *layColumns;
+	QHBoxLayout *layColumns;
+	QVBoxLayout *layColumn2;
 
 	QGridLayout *layMain;
 	QVBoxLayout *layMode;
@@ -46,6 +49,7 @@ private:
 	QPushButton *btnROM;
 	QPushButton *btnApply;
 
+	QButtonGroup *butsMode;
 	QRadioButton *radBase;
 	QRadioButton *radFiesta;
 	QRadioButton *radBalance;
@@ -66,12 +70,25 @@ private:
 	QCheckBox *chkDash;
 	QCheckBox *chkLearning;
 
+	QGroupBox *grpMulti;
+	QFormLayout *layMulti;
+	QHBoxLayout *layXP;
+	QHBoxLayout *layAP;
+	QHBoxLayout *layGil;
+	QButtonGroup *butsXP;
+	QButtonGroup *butsAP;
+	QButtonGroup *butsGil;
+	QRadioButton *radXP[4];
+	QRadioButton *radAP[4];
+	QRadioButton *radGil[4];
+
 	void initMain(void);
 	void initInnates(void);
+	void initMulti(void);
 	void btnROM_clicked(bool trigger);
 	void btnApply_clicked(bool trigger);
 	void applyPatch(QFile *file, QString patch);
-	void applyDemi(QFile *file);
+	void applyInnates(QFile *file);
 };
 
 #endif

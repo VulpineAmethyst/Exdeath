@@ -35,12 +35,14 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	filename = nullptr;
 
 	layApp = new QVBoxLayout(this);
-	layColumns = new QVBoxLayout(this);
+	layColumns = new QHBoxLayout(this);
 	layApp->addLayout(layColumns);
+	layColumn2 = new QVBoxLayout(this);
 
-	layMain = new QGridLayout(this);
-	layMode = new QVBoxLayout(this);
-	layInnates = new QVBoxLayout(this);
+	initMain();
+	initInnates();
+	initMulti();
+	layColumns->addLayout(layColumn2);
 
 	connect(btnROM, &QPushButton::clicked, this, &Exdeath::btnROM_clicked);
 	connect(btnApply, &QPushButton::clicked, this, &Exdeath::btnApply_clicked);
@@ -49,12 +51,11 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 Exdeath::~Exdeath() {}
 
 void Exdeath::initMain(void) {
+	layMain = new QGridLayout(this);
+	layMode = new QVBoxLayout(this);
 	grpMain = new QGroupBox("Main");
 	grpMain->setLayout(layMain);
-	grpInnates = new QGroupBox("Innate abilities");
-	grpInnates->setLayout(layInnates);
 	layColumns->addWidget(grpMain);
-	layColumns->addWidget(grpInnates);
 
 	txtROM       = new QLabel("ROM:");
 	txtMode      = new QLabel("Mode:");
@@ -68,10 +69,15 @@ void Exdeath::initMain(void) {
 	btnApply = new QPushButton("Apply");
 	layApp->addWidget(btnApply);
 
+	butsMode   = new QButtonGroup();
 	radBase    = new QRadioButton("Base");
+	butsMode->addButton(radBase);
 	radFiesta  = new QRadioButton("Jobs Unlocked");
+	butsMode->addButton(radFiesta);
 	radBalance = new QRadioButton("Balance");
+	butsMode->addButton(radBalance);
 	radCClass  = new QRadioButton("Custom Classes");
+	butsMode->addButton(radCClass);
 	radBase->setChecked(true);
 	layMode->addWidget(radBase);
 	layMode->addWidget(radFiesta);
@@ -102,6 +108,11 @@ void Exdeath::initMain(void) {
 }
 
 void Exdeath::initInnates(void) {
+	layInnates = new QVBoxLayout(this);
+	grpInnates = new QGroupBox("Innate abilities");
+	grpInnates->setLayout(layInnates);
+	layColumn2->addWidget(grpInnates);
+
 	chkPassages = new QCheckBox("Innate Passages");
 	chkPitfalls = new QCheckBox("Innate Pitfalls");
 	chkLiteStep = new QCheckBox("Innate Light Step");
@@ -112,6 +123,41 @@ void Exdeath::initInnates(void) {
 	layInnates->addWidget(chkLiteStep);
 	layInnates->addWidget(chkDash);
 	layInnates->addWidget(chkLearning);
+}
+
+void Exdeath::initMulti(void) {
+	grpMulti = new QGroupBox("Multipliers");
+	layMulti = new QFormLayout(this);
+	grpMulti->setLayout(layMulti);
+	layColumn2->addWidget(grpMulti);
+
+	layXP = new QHBoxLayout(this);
+	butsXP = new QButtonGroup();
+	layAP = new QHBoxLayout(this);
+	butsAP = new QButtonGroup();
+	layGil = new QHBoxLayout(this);
+	butsGil = new QButtonGroup();
+
+	int i[4] = {1, 2, 4, 8};
+	for (int j = 0; j < 4; j++) {
+		char temp[2];
+		snprintf(temp, 2, "%dx", i[j]);
+		radXP[j] = new QRadioButton(temp);
+		radAP[j] = new QRadioButton(temp);
+		radGil[j] = new QRadioButton(temp);
+		butsXP->addButton(radXP[j]);
+		butsAP->addButton(radAP[j]);
+		butsGil->addButton(radGil[j]);
+		layXP->addWidget(radXP[j]);
+		layAP->addWidget(radAP[j]);
+		layGil->addWidget(radGil[j]);
+	}
+	radXP[0]->setChecked(true);
+	radAP[0]->setChecked(true);
+	radGil[0]->setChecked(true);
+	layMulti->addRow("XP:", layXP);
+	layMulti->addRow("AP:", layAP);
+	layMulti->addRow("Gil:", layGil);
 }
 
 void Exdeath::btnROM_clicked(bool trigger) {
@@ -177,7 +223,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		}
 	}
 	if (chkPassages->isChecked() || chkPitfalls->isChecked() || chkLiteStep->isChecked() || chkDash->isChecked() || chkLearning->isChecked()) {
-		applyDemi(target);
+		applyInnates(target);
 	}
 	target->close();
 }
@@ -222,7 +268,7 @@ void Exdeath::applyPatch(QFile *file, QString patch) {
 	file->flush();
 	data->close();
 }
-void Exdeath::applyDemi(QFile *file) {
+void Exdeath::applyInnates(QFile *file) {
 	unsigned char base = 0;
 
 	if (!(radBase->isChecked() || radFiesta->isChecked())) {
