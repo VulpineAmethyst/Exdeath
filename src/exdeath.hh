@@ -66,6 +66,8 @@ private:
 	QCheckBox *chkDash;
 	QCheckBox *chkLearning;
 
+	void initMain(void);
+	void initInnates(void);
 	void btnROM_clicked(bool trigger);
 	void btnApply_clicked(bool trigger);
 	void applyPatch(QFile *file, QString patch);

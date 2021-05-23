@@ -42,6 +42,13 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	layMode = new QVBoxLayout(this);
 	layInnates = new QVBoxLayout(this);
 
+	connect(btnROM, &QPushButton::clicked, this, &Exdeath::btnROM_clicked);
+	connect(btnApply, &QPushButton::clicked, this, &Exdeath::btnApply_clicked);
+}
+
+Exdeath::~Exdeath() {}
+
+void Exdeath::initMain(void) {
 	grpMain = new QGroupBox("Main");
 	grpMain->setLayout(layMain);
 	grpInnates = new QGroupBox("Innate abilities");
@@ -49,7 +56,6 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	layColumns->addWidget(grpMain);
 	layColumns->addWidget(grpInnates);
 
-	// Main options
 	txtROM       = new QLabel("ROM:");
 	txtMode      = new QLabel("Mode:");
 	txtPortraits = new QLabel("FFT-style Portraits:");
@@ -93,8 +99,9 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	layMain->addWidget(chkSound, 4, 1);
 	layMain->addWidget(txtNED, 5, 0);
 	layMain->addWidget(selNED, 5, 1);
+}
 
-	// Project Demi options
+void Exdeath::initInnates(void) {
 	chkPassages = new QCheckBox("Innate Passages");
 	chkPitfalls = new QCheckBox("Innate Pitfalls");
 	chkLiteStep = new QCheckBox("Innate Light Step");
@@ -105,12 +112,7 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	layInnates->addWidget(chkLiteStep);
 	layInnates->addWidget(chkDash);
 	layInnates->addWidget(chkLearning);
-
-	connect(btnROM, &QPushButton::clicked, this, &Exdeath::btnROM_clicked);
-	connect(btnApply, &QPushButton::clicked, this, &Exdeath::btnApply_clicked);
 }
-
-Exdeath::~Exdeath() {}
 
 void Exdeath::btnROM_clicked(bool trigger) {
 	filename = QFileDialog::getOpenFileName(
