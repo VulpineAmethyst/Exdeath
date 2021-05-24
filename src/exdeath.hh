@@ -85,6 +85,7 @@ private:
 	void btnApply_clicked(bool trigger);
 	void applyPatch(QFile *file, QString patch);
 	void applyInnates(QFile *file);
+	void applyMultipliers(QFile *file);
 };
 
 #endif
