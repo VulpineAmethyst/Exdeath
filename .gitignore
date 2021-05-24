@@ -1,5 +1,7 @@
+.DS_Store
 .vscode/
 .qmake.stash
+*.user
 *.o
 qrc_*
 Makefile
