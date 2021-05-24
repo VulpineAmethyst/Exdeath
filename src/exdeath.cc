@@ -60,7 +60,6 @@ void Exdeath::initMain(void) {
 	txtROM       = new QLabel("ROM:");
 	txtMode      = new QLabel("Mode:");
 	txtPortraits = new QLabel("FFT-style Portraits:");
-	txtAP        = new QLabel("Double AP:");
 	txtSound     = new QLabel("Sound Restoration:");
 	txtSound->setToolTip("Requires GBA BIOS if using VisualBoyAdvance");
 	txtNED       = new QLabel("Neo ExDeath:");
@@ -77,7 +76,6 @@ void Exdeath::initMain(void) {
 	selMode->addItem("Waddler Balance");
 
 	chkPortraits = new QCheckBox("Yes");
-	chkAP        = new QCheckBox("Yes");
 	chkSound     = new QCheckBox("Yes");
 
 	selNED = new QComboBox();
@@ -91,12 +89,10 @@ void Exdeath::initMain(void) {
 	layMain->addWidget(selMode, 1, 1);
 	layMain->addWidget(txtPortraits, 2, 0);
 	layMain->addWidget(chkPortraits, 2, 1);
-	layMain->addWidget(txtAP, 3, 0);
-	layMain->addWidget(chkAP, 3, 1);
-	layMain->addWidget(txtSound, 4, 0);
-	layMain->addWidget(chkSound, 4, 1);
-	layMain->addWidget(txtNED, 5, 0);
-	layMain->addWidget(selNED, 5, 1);
+	layMain->addWidget(txtSound, 3, 0);
+	layMain->addWidget(chkSound, 3, 1);
+	layMain->addWidget(txtNED, 4, 0);
+	layMain->addWidget(selNED, 4, 1);
 }
 
 void Exdeath::initInnates(void) {
@@ -195,9 +191,6 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	}
 	if (chkPortraits->isChecked()) {
 		patches << ":/patches/portraits.ips";
-	}
-	if (chkAP->isChecked()) {
-		patches << ":/patches/double_ap.ips";
 	}
 	if (chkSound->isChecked()) {
 		patches << ":/patches/sound_restoration.ips";

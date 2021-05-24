@@ -7,7 +7,6 @@
 		<file>patches/cc_spellblade.ips</file>
 		<file>patches/waddle.ips</file>
 		<file>patches/portraits.ips</file>
-		<file>patches/double_ap.ips</file>
 		<file>patches/sound_restoration.ips</file>
 		<file>patches/ned/cactuar.ips</file>
 	</qresource>

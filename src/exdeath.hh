@@ -42,7 +42,6 @@ private:
 	QLabel *txtROM;
 	QLabel *txtMode;
 	QLabel *txtPortraits;
-	QLabel *txtAP;
 	QLabel *txtSound;
 	QLabel *txtNED;
 
@@ -52,7 +51,6 @@ private:
 	QComboBox *selMode;
 
 	QCheckBox *chkPortraits;
-	QCheckBox *chkAP;
 	QCheckBox *chkSound;
 
 	QComboBox *selNED;
