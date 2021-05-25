@@ -15,6 +15,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QRandomGenerator>
 #include <QStandardPaths>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -28,6 +29,7 @@ public:
 
 private:
 	QString filename;
+	QRandomGenerator *rand;
 
 	QErrorMessage *error;
 

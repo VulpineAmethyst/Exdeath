@@ -29,8 +29,10 @@
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
+#include <Ctime>
 
 Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
+	rand = new QRandomGenerator(time(NULL));
 	error = new QErrorMessage();
 	filename = nullptr;
 
@@ -79,9 +81,12 @@ void Exdeath::initMain(void) {
 	chkSound     = new QCheckBox("Yes");
 
 	selNED = new QComboBox();
+	selNED->addItem("Random");
 	selNED->addItem("Vanilla");
-	selNED->setCurrentIndex(0);
+	selNED->setCurrentIndex(1);
 	selNED->addItem("Cactuar", "cactuar.ips");
+	selNED->addItem("Neon ExDeath", "fancy.ips");
+	selNED->addItem("Puzzle & Dragon", "pad.ips");
 
 	layMain->addWidget(txtROM, 0, 0);
 	layMain->addWidget(btnROM, 0, 1);
@@ -195,9 +200,13 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	if (chkSound->isChecked()) {
 		patches << ":/patches/sound_restoration.ips";
 	}
-	if (selNED->currentIndex() != 0) {
+	int idx = selNED->currentIndex();
+	if (idx == 0) {
+		idx = rand->bounded(1, selNED->count() - 1);
+	}
+	if (idx > 1) {
 		QString temp = QString(":/patches/ned/");
-		temp.append(selNED->currentData().toString());
+		temp.append(selNED->itemData(idx).toString());
 		patches << temp;
 	}
 

@@ -9,5 +9,7 @@
 		<file>patches/portraits.ips</file>
 		<file>patches/sound_restoration.ips</file>
 		<file>patches/ned/cactuar.ips</file>
+		<file>patches/ned/fancy.ips</file>
+		<file>patches/ned/pad.ips</file>
 	</qresource>
 </RCC>
