@@ -89,6 +89,8 @@ void Exdeath::initMain(void) {
 	selNED->addItem("Puzzle & Dragon", "pad.ips");
 	selNED->addItem("Yiazmat", "yiazmat.ips");
 	selNED->addItem("Neo X Death", "neo-x-death.ips");
+	selNED->addItem("Doomtrain", "train.ips");
+	selNED->addItem("Thomas the Tank Engine", "thomas.ips");
 
 	layMain->addWidget(txtROM, 0, 0);
 	layMain->addWidget(btnROM, 0, 1);

@@ -12,6 +12,8 @@
 		<file>patches/ned/fancy.ips</file>
 		<file>patches/ned/neo-x-death.ips</file>
 		<file>patches/ned/pad.ips</file>
+		<file>patches/ned/thomas.ips</file>
+		<file>patches/ned/train.ips</file>
 		<file>patches/ned/yiazmat.ips</file>
 	</qresource>
 </RCC>
