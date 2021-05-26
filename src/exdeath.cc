@@ -87,6 +87,7 @@ void Exdeath::initMain(void) {
 	selNED->addItem("Cactuar", "cactuar.ips");
 	selNED->addItem("Neon ExDeath", "fancy.ips");
 	selNED->addItem("Puzzle & Dragon", "pad.ips");
+	selNED->addItem("Yiazmat", "yiazmat.ips");
 
 	layMain->addWidget(txtROM, 0, 0);
 	layMain->addWidget(btnROM, 0, 1);

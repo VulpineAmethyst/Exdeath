@@ -11,5 +11,6 @@
 		<file>patches/ned/cactuar.ips</file>
 		<file>patches/ned/fancy.ips</file>
 		<file>patches/ned/pad.ips</file>
+		<file>patches/ned/yiazmat.ips</file>
 	</qresource>
 </RCC>
