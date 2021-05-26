@@ -15,6 +15,7 @@
 		<file>patches/ned/pad.ips</file>
 		<file>patches/ned/thomas.ips</file>
 		<file>patches/ned/train.ips</file>
+		<file>patches/ned/tree.ips</file>
 		<file>patches/ned/yiazmat.ips</file>
 	</qresource>
 </RCC>

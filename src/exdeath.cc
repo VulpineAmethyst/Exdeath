@@ -90,6 +90,7 @@ void Exdeath::initMain(void) {
 	selNED->addItem("Neo X Death", "neo-x-death.ips");
 	selNED->addItem("Neon ExDeath", "fancy.ips");
 	selNED->addItem("Puzzle & Dragon", "pad.ips");
+	selNED->addItem("Territorial Oak", "tree.ips");
 	selNED->addItem("Thomas the Tank Engine", "thomas.ips");
 	selNED->addItem("Yiazmat", "yiazmat.ips");
 
