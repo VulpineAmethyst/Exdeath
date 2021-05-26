@@ -86,6 +86,7 @@ void Exdeath::initMain(void) {
 	selNED->setCurrentIndex(1);
 	selNED->addItem("Cactuar", "cactuar.ips");
 	selNED->addItem("Doomtrain", "train.ips");
+	selNED->addItem("Metroid", "metroid.ips");
 	selNED->addItem("Neo X Death", "neo-x-death.ips");
 	selNED->addItem("Neon ExDeath", "fancy.ips");
 	selNED->addItem("Puzzle & Dragon", "pad.ips");
