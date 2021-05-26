@@ -29,7 +29,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
-#include <Ctime>
+#include <ctime>
 
 Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	rand = new QRandomGenerator(time(NULL));
