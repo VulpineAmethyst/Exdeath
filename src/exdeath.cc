@@ -217,6 +217,21 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		temp.append(selNED->itemData(idx).toString());
 		patches << temp;
 	}
+	if (!butsXP->checkedButton()->text().compare("1x")) {
+		QString temp = QString(":/patches/xp/");
+		temp.append(butsXP->checkedButton()->text());
+		temp.append(".ips");
+	}
+	if (!butsAP->checkedButton()->text().compare("1x")) {
+		QString temp = QString(":/patches/ap/");
+		temp.append(butsAP->checkedButton()->text());
+		temp.append(".ips");
+	}
+	if (!butsGil->checkedButton()->text().compare("1x")) {
+		QString temp = QString(":/patches/gil/");
+		temp.append(butsGil->checkedButton()->text());
+		temp.append(".ips");
+	}
 
 	target = new QFile(output);
 	target->open(QIODevice::ReadWrite);
@@ -228,7 +243,6 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	if (chkPassages->isChecked() || chkPitfalls->isChecked() || chkLiteStep->isChecked() || chkDash->isChecked() || chkLearning->isChecked()) {
 		applyInnates(target);
 	}
-	applyMultipliers(target);
 	target->close();
 }
 
@@ -294,65 +308,5 @@ void Exdeath::applyInnates(QFile *file) {
 		temp[0] |= base;
 		file->seek(job_innates + (i * 2));
 		file->write(temp, 2);
-	}
-}
-
-void Exdeath::applyMultipliers(QFile *file) {
-	// go go gadget vomit bag!
-	int XP = butsXP->checkedButton()->text().data()[0].digitValue();
-	int AP = butsAP->checkedButton()->text().data()[0].digitValue();
-	int Gil = butsGil->checkedButton()->text().data()[0].digitValue();
-	if (XP == AP == Gil == 1) {
-		return;
-	}
-	for (int i = 0; i < 725; i++) {
-		char temp[2];
-		unsigned short data = 0;
-
-		// XP
-		if (XP > 1) {
-			file->seek(monster_block + (i * 36) + 0xC);
-			file->read(temp, 2);
-			data = (temp[1] << 8) + temp[0];
-			if ((data * XP) > 65535) {
-				data = 65535;
-			} else {
-				data *= XP;
-			}
-			temp[1] = (data >> 8) & 0xFF;
-			temp[0] = data & 0xFF;
-			file->seek(monster_block + (i * 36) + 0xC);
-			file->write(temp, 2);
-		}
-
-		// Gil
-		if (Gil > 1) {
-			file->seek(monster_block + (i * 36) + 0xE);
-			file->read(temp, 2);
-			data = (temp[1] << 8) + temp[0];
-			if ((data * Gil) > 65535) {
-				data = 65535;
-			} else {
-				data *= Gil;
-			}
-			temp[1] = (data >> 8) & 0xFF;
-			temp[0] = data & 0xFF;
-			file->seek(monster_block + (i * 36) + 0xE);
-			file->write(temp, 2);
-		}
-	}
-	if (AP > 1) {
-		for (int i = 0; i < 512; i++) {
-			char temp[2];
-			file->seek(form_block + (i * 28) + 2);
-			file->read(temp, 1);
-			if ((temp[0] * AP) > 255) {
-				temp[0] = -1; // 255, but this API doesn't support unsigned char.
-			} else {
-				temp[0] *= AP;
-			}
-			file->seek(form_block + (i * 28) + 2);
-			file->write(temp, 1);
-		}
 	}
 }
