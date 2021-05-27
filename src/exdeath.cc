@@ -310,43 +310,49 @@ void Exdeath::applyMultipliers(QFile *file) {
 		unsigned short data = 0;
 
 		// XP
-		file->seek(monster_block + (i * 36) + 0xC);
-		file->read(temp, 2);
-		data = (temp[1] << 8) + temp[0];
-		if ((data * XP) > 65535) {
-			data = 65535;
-		} else {
-			data *= XP;
+		if (XP > 1) {
+			file->seek(monster_block + (i * 36) + 0xC);
+			file->read(temp, 2);
+			data = (temp[1] << 8) + temp[0];
+			if ((data * XP) > 65535) {
+				data = 65535;
+			} else {
+				data *= XP;
+			}
+			temp[1] = (data >> 8) & 0xFF;
+			temp[0] = data & 0xFF;
+			file->seek(monster_block + (i * 36) + 0xC);
+			file->write(temp, 2);
 		}
-		temp[1] = (data >> 8) & 0xFF;
-		temp[0] = data & 0xFF;
-		file->seek(monster_block + (i * 36) + 0xC);
-		file->write(temp, 2);
 
 		// Gil
-		file->seek(monster_block + (i * 36) + 0xE);
-		file->read(temp, 2);
-		data = (temp[1] << 8) + temp[0];
-		if ((data * Gil) > 65535) {
-			data = 65535;
-		} else {
-			data *= Gil;
+		if (Gil > 1) {
+			file->seek(monster_block + (i * 36) + 0xE);
+			file->read(temp, 2);
+			data = (temp[1] << 8) + temp[0];
+			if ((data * Gil) > 65535) {
+				data = 65535;
+			} else {
+				data *= Gil;
+			}
+			temp[1] = (data >> 8) & 0xFF;
+			temp[0] = data & 0xFF;
+			file->seek(monster_block + (i * 36) + 0xE);
+			file->write(temp, 2);
 		}
-		temp[1] = (data >> 8) & 0xFF;
-		temp[0] = data & 0xFF;
-		file->seek(monster_block + (i * 36) + 0xE);
-		file->write(temp, 2);
 	}
-	for (int i = 0; i < 512; i++) {
-		char temp[2];
-		file->seek(form_block + (i * 28) + 2);
-		file->read(temp, 1);
-		if ((temp[0] * AP) > 255) {
-			temp[0] = -1; // 255, but this API doesn't support unsigned char.
-		} else {
-			temp[0] *= AP;
+	if (AP > 1) {
+		for (int i = 0; i < 512; i++) {
+			char temp[2];
+			file->seek(form_block + (i * 28) + 2);
+			file->read(temp, 1);
+			if ((temp[0] * AP) > 255) {
+				temp[0] = -1; // 255, but this API doesn't support unsigned char.
+			} else {
+				temp[0] *= AP;
+			}
+			file->seek(form_block + (i * 28) + 2);
+			file->write(temp, 1);
 		}
-		file->seek(form_block + (i * 28) + 2);
-		file->write(temp, 1);
 	}
 }
