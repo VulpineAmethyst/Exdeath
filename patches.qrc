@@ -19,5 +19,14 @@
 		<file>patches/ned/train.ips</file>
 		<file>patches/ned/tree.ips</file>
 		<file>patches/ned/yiazmat.ips</file>
+		<file>patches/xp/2x.ips</file>
+		<file>patches/xp/4x.ips</file>
+		<file>patches/xp/8x.ips</file>
+		<file>patches/ap/2x.ips</file>
+		<file>patches/ap/4x.ips</file>
+		<file>patches/ap/8x.ips</file>
+		<file>patches/gil/2x.ips</file>
+		<file>patches/gil/4x.ips</file>
+		<file>patches/gil/8x.ips</file>
 	</qresource>
 </RCC>
