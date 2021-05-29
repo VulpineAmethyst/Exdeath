@@ -72,10 +72,10 @@ void Exdeath::initMain(void) {
 
 	selMode = new QComboBox();
 	selMode->addItem("Base");
-	selMode->addItem("Unlocked Jobs");
-	selMode->addItem("Balance");
-	selMode->addItem("Custom Classes");
-	selMode->addItem("Waddler Balance");
+	selMode->addItem("Unlocked Jobs", "unlock.ips");
+	selMode->addItem("Balance", "balance.ips");
+	selMode->addItem("Custom Classes", "custom_classes.ips");
+	selMode->addItem("Waddler Rebalance", "waddle.ips");
 
 	chkPortraits = new QCheckBox("Yes");
 	chkSound     = new QCheckBox("Yes");
@@ -202,15 +202,10 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		"GBA ROM images (*.gba)"
 	);
 	QFile::copy(filename, output);
-	QString mode = selMode->currentText();
+	int mode = selMode->currentIndex();
 
-	if (mode.compare("Unlocked Jobs")) {
-		patches << ":/patches/unlock.ips";
-	} else if (mode.compare("Balance")) {
-		patches << ":/patches/balance.ips";
-	} else if (mode.compare("Custom Classes")) {
-		patches << ":/patches/custom_classes.ips";
-		patches << ":/patches/cc_spellblade.ips";
+	if (mode > 0) {
+		patches << ":/patches/" + selMode->itemData(mode).toString();
 	}
 	if (chkPortraits->isChecked()) {
 		patches << ":/patches/portraits.ips";
@@ -223,27 +218,28 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		idx = rand->bounded(1, selNED->count() - 1);
 	}
 	if (idx > 1) {
-		QString temp = QString(":/patches/ned/");
-		temp.append(selNED->itemData(idx).toString());
-		patches << temp;
+		patches << ":/patches/ned/" + selNED->itemData(idx).toString();
 	}
-	if (!butsXP->checkedButton()->text().compare("1x")) {
-		QString temp = QString(":/patches/xp/");
-		temp.append(butsXP->checkedButton()->text());
-		temp.append(".ips");
-		patches << temp;
+	char *XP = butsXP->checkedButton()->text().toLatin1().data();
+	if (strncmp(XP, "1", 2)) {
+		QString temp = ":/patches/xp/";
+		temp.append(XP);
+		temp.append("x.ips");
+		patches << temp.toLatin1().data();
 	}
-	if (!butsAP->checkedButton()->text().compare("1x")) {
-		QString temp = QString(":/patches/ap/");
-		temp.append(butsAP->checkedButton()->text());
-		temp.append(".ips");
-		patches << temp;
+	char *AP = butsAP->checkedButton()->text().toLatin1().data();
+	if (strncmp(AP, "1", 2)) {
+		QString temp = ":/patches/ap/";
+		temp.append(AP);
+		temp.append("x.ips");
+		patches << temp.toLatin1().data();
 	}
-	if (!butsGil->checkedButton()->text().compare("1x")) {
-		QString temp = QString(":/patches/gil/");
-		temp.append(butsGil->checkedButton()->text());
-		temp.append(".ips");
-		patches << temp;
+	char *Gil = butsGil->checkedButton()->text().toLatin1().data();
+	if (strncmp(Gil, "1", 2)) {
+		QString temp = ":/patches/gil/";
+		temp.append(Gil);
+		temp.append("x.ips");
+		patches << temp.toLatin1().data();
 	}
 
 	target = new QFile(output);
@@ -301,10 +297,10 @@ void Exdeath::applyPatch(QFile *file, QString patch) {
 }
 void Exdeath::applyInnates(QFile *file) {
 	unsigned char base = 0;
-	QString mode = selMode->currentText();
+	int mode = selMode->currentIndex();
 
-	if (!(mode.compare("Base") || mode.compare("Unlocked Jobs"))) {
-		error->showMessage("You must use Base or Fiesta to use these options.");
+	if (mode > 1) {
+		error->showMessage("You must use Base or Unlocked Jobs to use these options.");
 		return;
 	}
 
