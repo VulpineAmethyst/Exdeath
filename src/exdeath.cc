@@ -231,21 +231,24 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		QString temp = QString(":/patches/xp/");
 		temp.append(butsXP->checkedButton()->text());
 		temp.append(".ips");
+		patches << temp;
 	}
 	if (!butsAP->checkedButton()->text().compare("1x")) {
 		QString temp = QString(":/patches/ap/");
 		temp.append(butsAP->checkedButton()->text());
 		temp.append(".ips");
+		patches << temp;
 	}
 	if (!butsGil->checkedButton()->text().compare("1x")) {
 		QString temp = QString(":/patches/gil/");
 		temp.append(butsGil->checkedButton()->text());
 		temp.append(".ips");
+		patches << temp;
 	}
 
 	target = new QFile(output);
 	target->open(QIODevice::ReadWrite);
-	if (patches.size() != 0) {
+	if (patches.size() > 0) {
 		for (int i = 0; i < patches.size(); i++) {
 			applyPatch(target, patches[i]);
 		}
