@@ -93,12 +93,14 @@ void Exdeath::initMain(void) {
 	selNED->addItem("Cactuar", "cactuar.ips");
 	selNED->addItem("Chain Chomp", "chomp.ips");
 	selNED->addItem("Classic", "classic.ips");
+	selNED->addItem("Chaos", "chaos.ips");
 	selNED->addItem("Doomtrain", "train.ips");
 	selNED->addItem("Flammie (1)", "flammie1.ips");
 	selNED->addItem("Flammie (2)", "flammie2.ips");
 	selNED->addItem("Giant Beak", "giantbeak.ips");
 	selNED->addItem("Godzilla", "godzilla.ips");
 	selNED->addItem("Lavos Spawn", "lavos-spawn.ips");
+	selNED->addItem("Kefka", "kefka.ips");
 	selNED->addItem("MechaGodzilla", "mechagodzilla.ips");
 	selNED->addItem("Metroid", "metroid.ips");
 	selNED->addItem("Neo X Death", "neo-x-death.ips");

@@ -9,6 +9,7 @@
 		<file>patches/sound_restoration.ips</file>
 		<file>patches/ned/barf.ips</file>
 		<file>patches/ned/cactuar.ips</file>
+		<file>patches/ned/chaos.ips</file>
 		<file>patches/ned/chomp.ips</file>
 		<file>patches/ned/classic.ips</file>
 		<file>patches/ned/fancy.ips</file>
@@ -17,6 +18,7 @@
 		<file>patches/ned/flanders.ips</file>
 		<file>patches/ned/giantbeak.ips</file>
 		<file>patches/ned/godzilla.ips</file>
+		<file>patches/ned/kefka.ips</file>
 		<file>patches/ned/lavos-spawn.ips</file>
 		<file>patches/ned/mechagodzilla.ips</file>
 		<file>patches/ned/metroid.ips</file>
