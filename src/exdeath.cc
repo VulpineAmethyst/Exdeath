@@ -31,10 +31,11 @@
 #include <cstdio>
 #include <ctime>
 
-Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
+Exdeath::Exdeath(QSettings *cfg, QWidget *parent) : QWidget(parent) {
 	rand = new QRandomGenerator(time(NULL));
 	error = new QErrorMessage();
 	filename = nullptr;
+	_cfg = cfg;
 
 	layApp = new QVBoxLayout(this);
 	layColumns = new QHBoxLayout(this);
@@ -46,8 +47,11 @@ Exdeath::Exdeath(QWidget *parent) : QWidget(parent) {
 	initMulti();
 	layColumns->addLayout(layColumn2);
 
+	initConfig();
+
 	connect(btnROM, &QPushButton::clicked, this, &Exdeath::btnROM_clicked);
 	connect(btnApply, &QPushButton::clicked, this, &Exdeath::btnApply_clicked);
+	connect(btnSave, &QPushButton::clicked, this, &Exdeath::btnSave_clicked);
 }
 
 Exdeath::~Exdeath() {}
@@ -69,6 +73,7 @@ void Exdeath::initMain(void) {
 	btnROM   = new QPushButton("Select ROM");
 	btnApply = new QPushButton("Apply");
 	layApp->addWidget(btnApply);
+	btnSave  = new QPushButton("Save Config");
 
 	selMode = new QComboBox();
 	selMode->addItem("Base");
@@ -116,6 +121,7 @@ void Exdeath::initMain(void) {
 	layMain->addWidget(chkSound, 3, 1);
 	layMain->addWidget(txtNED, 4, 0);
 	layMain->addWidget(selNED, 4, 1);
+	layMain->addWidget(btnSave, 5, 1);
 }
 
 void Exdeath::initInnates(void) {
@@ -157,8 +163,11 @@ void Exdeath::initMulti(void) {
 		radAP[j] = new QRadioButton(temp);
 		radGil[j] = new QRadioButton(temp);
 		butsXP->addButton(radXP[j]);
+		butsXP->setId(radXP[j], i[j]);
 		butsAP->addButton(radAP[j]);
+		butsAP->setId(radAP[j], i[j]);
 		butsGil->addButton(radGil[j]);
+		butsGil->setId(radGil[j], i[j]);
 		layXP->addWidget(radXP[j]);
 		layAP->addWidget(radAP[j]);
 		layGil->addWidget(radGil[j]);
@@ -171,6 +180,47 @@ void Exdeath::initMulti(void) {
 	layMulti->addRow("Gil:", layGil);
 }
 
+void Exdeath::initConfig(void) {
+	QString temp = _cfg->value("rom/filename", "").toString();
+
+	if (temp.length() != 0) {
+		filename = temp;
+	}
+	selMode->setCurrentIndex(_cfg->value("main/mode", 0).toInt());
+	selNED->setCurrentIndex(_cfg->value("main/ned", 1).toInt());
+	chkPortraits->setChecked(_cfg->value("main/portraits", false).toBool());
+	chkSound->setChecked(_cfg->value("main/sound_restore", false).toBool());
+
+	chkPassages->setChecked(_cfg->value("innate/passages", false).toBool());
+	chkPitfalls->setChecked(_cfg->value("innate/pitfalls", false).toBool());
+	chkLiteStep->setChecked(_cfg->value("innate/litestep", false).toBool());
+	chkDash->setChecked(_cfg->value("innate/dash", false).toBool());
+	chkLearning->setChecked(_cfg->value("innate/learning", false).toBool());
+
+	butsXP->button(_cfg->value("multi/xp", 1).toInt())->setChecked(true);
+	butsAP->button(_cfg->value("multi/ap", 1).toInt())->setChecked(true);
+	butsGil->button(_cfg->value("multi/gil", 1).toInt())->setChecked(true);
+}
+
+void Exdeath::btnSave_clicked(bool trigger) {
+	_cfg->setValue("rom/filename", filename);
+	_cfg->setValue("main/mode", selMode->currentIndex());
+	_cfg->setValue("main/ned", selNED->currentIndex());
+	_cfg->setValue("main/portraits", chkPortraits->isChecked());
+	_cfg->setValue("main/sound_restore", chkSound->isChecked());
+
+	_cfg->setValue("innate/passages", chkPassages->isChecked());
+	_cfg->setValue("innate/pitfalls", chkPitfalls->isChecked());
+	_cfg->setValue("innate/litestep", chkLiteStep->isChecked());
+	_cfg->setValue("innate/dash", chkDash->isChecked());
+	_cfg->setValue("innate/learning", chkLearning->isChecked());
+
+	_cfg->setValue("multi/xp", butsXP->checkedId());
+	_cfg->setValue("multi/ap", butsAP->checkedId());
+	_cfg->setValue("multi/gil", butsGil->checkedId());
+	_cfg->sync();
+}
+
 void Exdeath::btnROM_clicked(bool trigger) {
 	filename = QFileDialog::getOpenFileName(
 		this,
@@ -178,6 +228,7 @@ void Exdeath::btnROM_clicked(bool trigger) {
 		QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation)[0],
 		"GBA ROM images (*.gba)"
 	);
+	_cfg->setValue("rom/filename", filename);
 	QFile *target = new QFile(filename);
 	QCryptographicHash *md5 = new QCryptographicHash(QCryptographicHash::Md5);
 	target->open(QIODevice::ReadOnly);
@@ -216,6 +267,10 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	int idx = selNED->currentIndex();
 	if (idx == 0) {
 		idx = rand->bounded(1, selNED->count() - 1);
+	}
+	if ((idx == 1) && (mode == 2)) {
+		error->showMessage("You can't set a custom NED with the Balance patch; it'll break.");
+		return;
 	}
 	if (idx > 1) {
 		patches << ":/patches/ned/" + selNED->itemData(idx).toString();

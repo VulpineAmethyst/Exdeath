@@ -16,6 +16,7 @@
 #include <QPushButton>
 #include <QRadioButton>
 #include <QRandomGenerator>
+#include <QSettings>
 #include <QStandardPaths>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -24,10 +25,11 @@
 
 class Exdeath : public QWidget {
 public:
-	Exdeath(QWidget *parent = nullptr);
+	Exdeath(QSettings *cfg, QWidget *parent = nullptr);
 	~Exdeath();
 
 private:
+	QSettings *_cfg;
 	QString filename;
 	QRandomGenerator *rand;
 
@@ -49,6 +51,7 @@ private:
 
 	QPushButton *btnROM;
 	QPushButton *btnApply;
+	QPushButton *btnSave;
 
 	QComboBox *selMode;
 
@@ -81,8 +84,10 @@ private:
 	void initMain(void);
 	void initInnates(void);
 	void initMulti(void);
+	void initConfig(void);
 	void btnROM_clicked(bool trigger);
 	void btnApply_clicked(bool trigger);
+	void btnSave_clicked(bool trigger);
 	void applyPatch(QFile *file, QString patch);
 	void applyInnates(QFile *file);
 };

@@ -31,7 +31,14 @@
 
 int main(int argc, char **argv) {
 	QApplication *app = new QApplication(argc, argv);
-	Exdeath *win = new Exdeath();
+	QApplication::setOrganizationName("Aerdan");
+	QApplication::setOrganizationDomain("aerdan.org");
+	QApplication::setApplicationName("Exdeath");
+	QApplication::setApplicationDisplayName("Exdeath");
+	QApplication::setApplicationVersion("0.5");
+
+	QSettings *cfg = new QSettings();
+	Exdeath *win = new Exdeath(cfg);
 
 	win->show();
 
