@@ -30,9 +30,9 @@
 #include <cstdlib>
 #include <cstdio>
 #include <ctime>
+#include <climits>
 
 Exdeath::Exdeath(QSettings *cfg, QWidget *parent) : QWidget(parent) {
-	rand = new QRandomGenerator(time(NULL));
 	error = new QErrorMessage();
 	filename = nullptr;
 	_cfg = cfg;
@@ -68,6 +68,7 @@ void Exdeath::initMain(void) {
 	txtPortraits = new QLabel("FFT-style Portraits:");
 	txtSound     = new QLabel("Sound Restoration:");
 	txtSound->setToolTip("Requires GBA BIOS if using VisualBoyAdvance");
+	txtSeed      = new QLabel("Seed:");
 	txtNED       = new QLabel("Neo ExDeath:");
 
 	btnROM   = new QPushButton("Select ROM");
@@ -77,6 +78,7 @@ void Exdeath::initMain(void) {
 
 	selMode = new QComboBox();
 	selMode->addItem("Base");
+	selMode->addItem("Randomizer");
 	selMode->addItem("Unlocked Jobs", "unlock.ips");
 	selMode->addItem("Balance", "balance.ips");
 	selMode->addItem("Custom Classes", "custom_classes.ips");
@@ -84,6 +86,11 @@ void Exdeath::initMain(void) {
 
 	chkPortraits = new QCheckBox("Yes");
 	chkSound     = new QCheckBox("Yes");
+
+	numSeed = new QSpinBox();
+	numSeed->setRange(0, INT_MAX);
+	// provide a default value so it's not just 0 all the time
+	numSeed->setValue(time(NULL) / 3600);
 
 	selNED = new QComboBox();
 	selNED->addItem("Random");
@@ -121,9 +128,11 @@ void Exdeath::initMain(void) {
 	layMain->addWidget(chkPortraits, 2, 1);
 	layMain->addWidget(txtSound, 3, 0);
 	layMain->addWidget(chkSound, 3, 1);
-	layMain->addWidget(txtNED, 4, 0);
-	layMain->addWidget(selNED, 4, 1);
-	layMain->addWidget(btnSave, 5, 1);
+	layMain->addWidget(txtSeed, 4, 0);
+	layMain->addWidget(numSeed, 4, 1);
+	layMain->addWidget(txtNED, 5, 0);
+	layMain->addWidget(selNED, 5, 1);
+	layMain->addWidget(btnSave, 6, 1);
 }
 
 void Exdeath::initInnates(void) {
@@ -256,8 +265,10 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	);
 	QFile::copy(filename, output);
 	int mode = selMode->currentIndex();
+	std::mt19937 rand(numSeed->value());
+	std::uniform_int_distribution<> dist(1, selNED->count() - 1);
 
-	if (mode > 0) {
+	if (mode > 1) {
 		patches << ":/patches/" + selMode->itemData(mode).toString();
 	}
 	if (chkPortraits->isChecked()) {
@@ -268,10 +279,10 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	}
 	int idx = selNED->currentIndex();
 	if (idx == 0) {
-		idx = rand->bounded(1, selNED->count() - 1);
+		idx = dist(rand);
 	}
-	if ((idx == 1) && (mode == 2)) {
-		error->showMessage("You can't set a custom NED with the Balance patch; it'll break.");
+	if ((idx == 1) && ((mode > 2) && (mode < 5))) {
+		error->showMessage("You can't set a custom NED with this mode; it'll break.");
 		return;
 	}
 	if (idx > 1) {
@@ -303,19 +314,26 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	target->open(QIODevice::ReadWrite);
 	if (patches.size() > 0) {
 		for (int i = 0; i < patches.size(); i++) {
-			applyPatch(target, patches[i]);
+			QFile *patch = new QFile(patches[i]);
+			patch->open(QIODevice::ReadOnly);
+			applyPatch(target, patch);
 		}
 	}
-	if (chkPassages->isChecked() || chkPitfalls->isChecked() || chkLiteStep->isChecked() || chkDash->isChecked() || chkLearning->isChecked()) {
+
+	bool global_innates = (chkPassages->isChecked() || chkPitfalls->isChecked() || chkLiteStep->isChecked() || chkDash->isChecked() || chkLearning->isChecked());
+	// gyahahaha RANDOMIZER!!
+	if (mode == 1) {
+		Randomizer *rando = new Randomizer(rand);
+		QBuffer *patch = rando->makeRandom(global_innates);
+		applyPatch(target, patch);
+	}
+	if (global_innates) {
 		applyInnates(target);
 	}
 	target->close();
 }
 
-void Exdeath::applyPatch(QFile *file, QString patch) {
-	QFile *data = new QFile(patch);
-	data->open(QIODevice::ReadOnly);
-
+void Exdeath::applyPatch(QFile *file, QIODevice *data) {
 	// skipping header
 	data->seek(5);
 
@@ -365,7 +383,7 @@ void Exdeath::applyInnates(QFile *file) {
 	if (chkPitfalls->isChecked()) base |= Job::Pitfalls;
 	if (chkLiteStep->isChecked()) base |= Job::LiteStep;
 	if (chkDash->isChecked())     base |= Job::Dash;
-	if (chkLearning->isChecked()) base |= Job::Learning;
+	if (chkLearning->isChecked()) base |= Job::ILearning;
 
 	for (int i = 0; i < 26; i++) {
 		char temp[2];

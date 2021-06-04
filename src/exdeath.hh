@@ -1,6 +1,8 @@
 #ifndef EXDEATH_HH_GUARD
 #define EXDEATH_HH_GUARD
 
+#include <random>
+
 #include <QButtonGroup>
 #include <QCheckBox>
 #include <QComboBox>
@@ -15,13 +17,14 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QRadioButton>
-#include <QRandomGenerator>
 #include <QSettings>
+#include <QSpinBox>
 #include <QStandardPaths>
 #include <QVBoxLayout>
 #include <QWidget>
 
 #include "data.hh"
+#include "randomizer.hh"
 
 class Exdeath : public QWidget {
 public:
@@ -31,7 +34,6 @@ public:
 private:
 	QSettings *_cfg;
 	QString filename;
-	QRandomGenerator *rand;
 
 	QErrorMessage *error;
 
@@ -48,6 +50,7 @@ private:
 	QLabel *txtPortraits;
 	QLabel *txtSound;
 	QLabel *txtNED;
+	QLabel *txtSeed;
 
 	QPushButton *btnROM;
 	QPushButton *btnApply;
@@ -68,6 +71,7 @@ private:
 	QCheckBox *chkLiteStep;
 	QCheckBox *chkDash;
 	QCheckBox *chkLearning;
+	QSpinBox *numSeed;
 
 	QGroupBox *grpMulti;
 	QFormLayout *layMulti;
@@ -88,7 +92,7 @@ private:
 	void btnROM_clicked(bool trigger);
 	void btnApply_clicked(bool trigger);
 	void btnSave_clicked(bool trigger);
-	void applyPatch(QFile *file, QString patch);
+	void applyPatch(QFile *file, QIODevice *Data);
 	void applyInnates(QFile *file);
 };
 
