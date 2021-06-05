@@ -246,6 +246,7 @@ void Exdeath::btnROM_clicked(bool trigger) {
 	if (md5->addData(target)) {
 		if (md5->result().toHex().compare("9ed82843cc54876362be56faccb15d75") != 0) {
 			error->showMessage("You must provide a Final Fantasy V Advance US image.");
+			filename = nullptr;
 		}
 	}
 	target->close();
