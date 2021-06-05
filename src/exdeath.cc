@@ -78,7 +78,7 @@ void Exdeath::initMain(void) {
 
 	selMode = new QComboBox();
 	selMode->addItem("Base");
-	selMode->addItem("Randomizer");
+	selMode->addItem("Randomizer", "rando/fixmagic.ips");
 	selMode->addItem("Unlocked Jobs", "unlock.ips");
 	selMode->addItem("Balance", "balance.ips");
 	selMode->addItem("Custom Classes", "custom_classes.ips");
@@ -268,7 +268,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	std::mt19937 rand(numSeed->value());
 	std::uniform_int_distribution<> dist(1, selNED->count() - 1);
 
-	if (mode > 1) {
+	if (mode > 0) {
 		patches << ":/patches/" + selMode->itemData(mode).toString();
 	}
 	if (chkPortraits->isChecked()) {
@@ -321,10 +321,14 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	}
 
 	bool global_innates = (chkPassages->isChecked() || chkPitfalls->isChecked() || chkLiteStep->isChecked() || chkDash->isChecked() || chkLearning->isChecked());
-	// gyahahaha RANDOMIZER!!
 	if (mode == 1) {
 		Randomizer *rando = new Randomizer(rand);
+		QFile *pfile = new QFile(output + ".ips");
+		pfile->open(QIODevice::WriteOnly);
 		QBuffer *patch = rando->makeRandom(global_innates);
+		pfile->write(patch->readAll());
+		patch->seek(0);
+		pfile->close();
 		applyPatch(target, patch);
 	}
 	if (global_innates) {

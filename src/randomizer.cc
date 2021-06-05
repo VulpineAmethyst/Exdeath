@@ -282,25 +282,36 @@ void Randomizer::randomizeSkills(void) {
     std::shuffle(l_tier6->begin(), l_tier6->end(), rng);
     std::shuffle(l_tier4->begin(), l_tier4->end(), rng);
     std::shuffle(l_tier2->begin(), l_tier2->end(), rng);
+    actions->append(*l_tier4);
+    actions->append(*l_tier2);
 
     for (int i = 0; i < 20; i++) {
         jobs[i] = new QVector<Skill>();
         costs[i] = new QVector<int>();
     }
+    QVector<int> *job_list = new QVector<int>();
+    for (int i = 0; i < JOB_COUNT; i++) {
+        job_list->append(i);
+    }
+    std::shuffle(job_list->begin(), job_list->end(), rng);
 
-    while (tierpos < 6) {
-        if (skills[tierpos]->count() < 1) {
-            tierpos += 1;
-        }
+    while (tierpos < 5) {
         for (int i = 0; i < JOB_COUNT; i++) {
-            Skill temp = skills[i]->first();
+            int job = job_list->at(i);
+            if (skills[tierpos]->count() < 1) {
+                tierpos += 1;
+            }
+            if (skills[tierpos]->isEmpty()) {
+                break;
+            }
+            Skill temp = skills[tierpos]->first();
             int minimum = 0;
-            if (costs[i]->count() > 0) {
+            if (costs[job]->count() > 0) {
                 minimum = costs[i]->last();
             }
-            skills[i]->removeFirst();
-            jobs[i]->append(temp);
-            costs[i]->append(tierCost(tierpos, minimum));
+            skills[tierpos]->removeFirst();
+            jobs[job]->append(temp);
+            costs[job]->append(tierCost(tierpos, minimum));
         }
     }
 
@@ -315,14 +326,12 @@ void Randomizer::randomizeSkills(void) {
         actions->removeFirst();
         commands->insert(job, temp);
     }
-    actions->append(*l_tier4);
     for (int i = 0; i < jobs2->count(); i++) {
         int job = jobs2->at(i);
         Skill temp = actions->first();
         actions->removeFirst();
         commands->insert(job, temp);
     }
-    actions->append(*l_tier2);
     for (int i = 0; i < jobs3->count(); i++) {
         int job = jobs3->at(i);
         Skill temp = actions->first();
@@ -341,6 +350,8 @@ QByteArray be24(int num) {
 
 QBuffer *Randomizer::writePatch(void) {
     QBuffer *patch = new QBuffer();
+    patch->open(QIODevice::ReadWrite);
+
     patch->write("PATCH");
 
     // job commands
@@ -350,7 +361,7 @@ QBuffer *Randomizer::writePatch(void) {
             continue;
         }
         patch->write(be24(0x15616c + (i * 4) + 1));
-        patch->write("\x00\x01");
+        patch->write("\x00\x01", 2);
         QByteArray temp;
         temp.append(commands->at(i) & 0xFF);
         patch->write(temp);
@@ -358,7 +369,7 @@ QBuffer *Randomizer::writePatch(void) {
 
     // ability counts
     patch->write(be24(0x14b1fc));
-    patch->write("\x00\x14");
+    patch->write("\x00\x14", 2);
     for (int i = 0; i < JOB_COUNT; i++) {
         char count = jobs[i]->count();
         patch->putChar(count);
@@ -366,14 +377,15 @@ QBuffer *Randomizer::writePatch(void) {
 
     // table offset
     patch->write(be24(0x155484));
-    patch->write("\x00\x50");
+    patch->write("\x00\x50", 2);
     for (int i = 0; i < JOB_COUNT; i++) {
-        patch->write("\xe8\x54\x15\x08");
+        patch->write("\xe8\x54\x15\x08", 4);
     }
 
     // ability lists
     patch->write(be24(0x1554E8));
-    patch->write("\x00\x50");
+    QByteArray abilities;
+
     for (int i = 0; i < JOB_COUNT; i++) {
         QVector<Skill> *job = jobs[i];
         char count = job->count();
@@ -387,9 +399,18 @@ QBuffer *Randomizer::writePatch(void) {
             // skill
             data.append(job->at(j) & 0xFF);
             data.append((char)0);
-            patch->write(data);
+            abilities.append(data);
         }
     }
+    unsigned short size = abilities.count();
+    char csize[3];
+    csize[0] = (size >> 8) & 0xFF;
+    csize[1] = size & 0xFF;
+    csize[2] = NULL;
+    patch->write(csize, 2);
+    patch->write(abilities);
+    patch->write("EOF");
+    patch->seek(0);
     return patch;
 }
 
