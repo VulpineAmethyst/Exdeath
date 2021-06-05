@@ -47,7 +47,7 @@ private:
     // final results
     QVector<Skill> *jobs[JOB_COUNT];
     QVector<int> *costs[JOB_COUNT];
-    QVector<Skill> *commands;
+    Skill commands[JOB_COUNT];
     QVector<Skill> *actions;
 
     QByteArray int2byte(int num);

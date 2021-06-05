@@ -111,5 +111,9 @@ enum Skill {
 #define JOB_COUNT 20
 
 const int tier1_jobs[] = {9, 10, 11, 12, 16, 17, 18};
-const int tier2_jobs[] = {2, 13, 14, 13, 1, 19};
-const int tier3_jobs[] = {0, 3, 4, 5, 8, 7, 15};
+const int tier2_jobs[] = {1,  2, 13, 14, 15, 19};
+const int tier3_jobs[] = {0,  3,  4,  5,  7,  8, 15};
+
+const int job_tier[] = {
+    3, 2, 2, 3, 3, 3, 0, 3, 3, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 2
+};
