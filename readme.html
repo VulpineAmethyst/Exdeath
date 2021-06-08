@@ -5,8 +5,32 @@
         <title>Exdeath 0.2 readme</title>
         <style>
 body {
-	background-color: #F2F2F2;
-	color: #000;
+    width: 60vw;
+    margin: 0 auto;
+}
+@media (prefers-color-scheme: light) {
+    body {
+        color: #000;
+        background-color: #F2F2F2;
+    }
+    a:link, a:visited {
+        color: #05B;
+    }
+    a:hover, a:active {
+        color: #50B;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #BBB;
+        background-color: #000;
+    }
+    a:link, a:visited {
+        color: #5BF;
+    }
+    a:hover, a:active {
+        color: #B5F;
+    }
 }
         </style>
     <head>
@@ -16,17 +40,22 @@ body {
         <h3>Main</h3>
         <p>The real meat of the program: the patches.</p>
         <ul>
-            <li>Base:<ul>
+            <li><b>Base</b>:<ul>
                 <li>None &mdash; The base game.</li>
-                <li>Randomizer &mdash; Job skills are randomized.</li>
-                <li><a href="https://www.dropbox.com/s/ldlmpoepxk5nxgl/fiesta.ups?dl=0">Unlocked Jobs</a> &mdash; All Jobs are unlocked from the beginning.</li>
+                <li><a href="https://freki.aerdan.org/~TheGreatWaddler/readme.txt">Waddle Rebalance</a> &mdash; Yet another remixed version which aims to pump up some underwhelming Jobs without altering overall balance too much.</li>
                 <li><a href="https://www.dropbox.com/s/g52xshu0juaa2c7/ffvamod-doc.txt?dl=0">Balance</a> &mdash; A remixed version which adds the Hero Job and changes things up.</li>
                 <li><a href="http://jeffludwig.com/ff5a/download.php">Custom Classes</a> &mdash; A different remixed version by ludmeister.</li>
-                <li><a href="https://freki.aerdan.org/~TheGreatWaddler/readme.txt">Waddle Rebalance</a> &mdash; Yet another remixed version which aims to pump up some underwhelming Jobs without altering overall balance too much.</li>
             </ul></li>
-            <li>FFT-style Portraits: As the name implies, this option replaces the portraits with edited Final Fantasy Tactics portraits.</li>
-            <li><a href="http://www.romhacking.net/hacks/563/">Sound Restoration</a>: This option modifies the soundfont and corrects some slow-down issues. It can cause artifacting, however. Older versions of VisualBoyAdvance will require the GBA BIOS file in order to run normally with this option.</li>
-            <li>Neo ExDeath: Pick graphics for the final boss.<ul>
+            <li><b>Unlocked Jobs</b>: Unlocks all jobs directly out of the gate. Half of <a href="https://www.dropbox.com/s/ldlmpoepxk5nxgl/fiesta.ups?dl=0">wormsofcan's Fiesta patch</a>.</li>
+            <li><b>FFT-style Portraits</b>: As the name implies, this option replaces the portraits with edited Final Fantasy Tactics portraits. (missing attribution, sorry.)</li>
+            <li><b>Sound Restoration</b>: The <a href="http://www.romhacking.net/hacks/563/">Sound Restoration</a> hack modifies the soundfont and corrects some slow-down issues. It can cause artifacting, however. Older versions of VisualBoyAdvance will require the GBA BIOS file in order to run normally with this option.</li>
+            <li><b>Save Config</b>: Saves your current configuration, including the ROM location. This configuration will be automatically loaded on next run.</li>
+        </ul>
+        <h3>Randomization</h3>
+        <p>Randomizable components.</p>
+        <ul>
+            <li><b>Seed</b>: A number used to set the random number generator to a known state. The range accepted is 0 through 2<sup>31</sup> &ndash; 1, inclusive. Default value is the current time in seconds since 1 January 1970 00:00 UTC, divided by 3600.</li>
+            <li><b>Neo ExDeath</b>: Pick graphics for the final boss.<ul>
                 <li>Random: Chooses a random NED.</li>
                 <li>Vanilla: The original.</li>
                 <li>Barf: From Earthbound.</li>
@@ -49,7 +78,7 @@ body {
                 <li>Territorial Oak: From Earthbound?</li>
                 <li>Yiazmat: From Final Fantasy: Record Keeper.</li>
             </ul></li>
-            <li>Save Config: Saves your current configuration, including the ROM location. This configuration will be automatically loaded on next run.</li>
+            <li><b>Abilities</b>: Shuffles abilities such that all Jobs learn five abilities and have a randomized command.</li>
         </ul>
         <p>There is one graphic present that will not be enumerated. You'll know it when you see it.</p>
         <h3>Innate abilities</h3>
