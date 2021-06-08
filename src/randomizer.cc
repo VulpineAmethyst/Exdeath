@@ -405,7 +405,7 @@ QBuffer *Randomizer::writePatch(void) {
     char csize[3];
     csize[0] = (size >> 8) & 0xFF;
     csize[1] = size & 0xFF;
-    csize[2] = NULL;
+    csize[2] = '\0';
     patch->write(csize, 2);
     patch->write(abilities);
     patch->write("EOF");
