@@ -73,6 +73,7 @@ private:
 	QCheckBox *chkLiteStep;
 	QCheckBox *chkDash;
 	QCheckBox *chkLearning;
+	bool innates_enabled;
 
 	// Multipliers
 	QGroupBox *grpMulti;

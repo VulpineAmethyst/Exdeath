@@ -222,6 +222,7 @@ void Exdeath::initConfig(void) {
 	chkPortraits->setChecked(_cfg->value("main/portraits", false).toBool());
 	chkSound->setChecked(_cfg->value("main/sound_restore", false).toBool());
 
+	innates_enabled = _cfg->value("innate/enabled", true).toBool();
 	chkPassages->setChecked(_cfg->value("innate/passages", false).toBool());
 	chkPitfalls->setChecked(_cfg->value("innate/pitfalls", false).toBool());
 	chkLiteStep->setChecked(_cfg->value("innate/litestep", false).toBool());
@@ -236,14 +237,26 @@ void Exdeath::initConfig(void) {
 void Exdeath::selMode_index(int idx) {
 	bool random_ok = false;
 	bool unlock_ok = false;
+	bool innate_ok = false;
+
 	if (idx < 2) {
 		unlock_ok = true;
+		innate_ok = true;
 	}
 	if (idx == 0) {
 		random_ok = true;
 	}
+
 	chkRandom->setEnabled(random_ok);
+
 	chkUnlock->setEnabled(unlock_ok);
+
+	chkPassages->setEnabled(innate_ok);
+	chkPitfalls->setEnabled(innate_ok);
+	chkLiteStep->setEnabled(innate_ok);
+	chkDash->setEnabled(innate_ok);
+	chkLearning->setEnabled(innate_ok);
+	innates_enabled = innate_ok;
 }
 
 void Exdeath::btnSave_clicked(bool trigger) {
@@ -254,6 +267,7 @@ void Exdeath::btnSave_clicked(bool trigger) {
 	_cfg->setValue("main/portraits", chkPortraits->isChecked());
 	_cfg->setValue("main/sound_restore", chkSound->isChecked());
 
+	_cfg->setValue("innate/enabled", innates_enabled);
 	_cfg->setValue("innate/passages", chkPassages->isChecked());
 	_cfg->setValue("innate/pitfalls", chkPitfalls->isChecked());
 	_cfg->setValue("innate/litestep", chkLiteStep->isChecked());
@@ -319,7 +333,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	if (idx == 0) {
 		idx = dist(rand);
 	}
-	if ((idx == 1) && ((mode > 2) && (mode < 5))) {
+	if ((idx == 1) && (mode > 1)) {
 		error->showMessage("You can't set a custom NED with this mode; it'll break.");
 		return;
 	}
@@ -358,7 +372,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		}
 	}
 
-	bool global_innates = (chkPassages->isChecked() || chkPitfalls->isChecked() || chkLiteStep->isChecked() || chkDash->isChecked() || chkLearning->isChecked());
+	bool global_innates = innates_enabled && (chkPassages->isChecked() || chkPitfalls->isChecked() || chkLiteStep->isChecked() || chkDash->isChecked() || chkLearning->isChecked());
 	if (chkRandom->isChecked() && chkRandom->isEnabled()) {
 		Randomizer *rando = new Randomizer(rand);
 		QFile *pfile = new QFile(output + ".ips");
@@ -414,12 +428,6 @@ void Exdeath::applyPatch(QFile *file, QIODevice *data) {
 }
 void Exdeath::applyInnates(QFile *file) {
 	unsigned char base = 0;
-	int mode = selMode->currentIndex();
-
-	if (mode > 1) {
-		error->showMessage("You must use Base or Unlocked Jobs to use these options.");
-		return;
-	}
 
 	if (chkPassages->isChecked()) base |= Job::Passages;
 	if (chkPitfalls->isChecked()) base |= Job::Pitfalls;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QMap>
+
 enum Skill {
     // Action skills
     Guard     = 0x06,
@@ -117,3 +119,5 @@ const int tier3_jobs[] = {0,  3,  4,  5,  7,  8, 15};
 const int job_tier[] = {
     3, 2, 2, 3, 3, 3, 0, 3, 3, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 2
 };
+
+extern const QMap<QString, int> *JobsList;
