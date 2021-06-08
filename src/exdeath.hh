@@ -39,40 +39,42 @@ private:
 
 	QVBoxLayout *layApp;
 	QHBoxLayout *layColumns;
-	QVBoxLayout *layColumn2;
+	QVBoxLayout *layLeft;
+	QVBoxLayout *layRight;
 
+	// Main settings
 	QGridLayout *layMain;
-	QVBoxLayout *layMode;
 	QGroupBox *grpMain;
-
 	QLabel *txtROM;
 	QLabel *txtMode;
+	QLabel *txtUnlock;
 	QLabel *txtPortraits;
 	QLabel *txtSound;
-	QLabel *txtNED;
-	QLabel *txtSeed;
-
 	QPushButton *btnROM;
 	QPushButton *btnApply;
 	QPushButton *btnSave;
-
 	QComboBox *selMode;
-
+	QCheckBox *chkUnlock;
 	QCheckBox *chkPortraits;
 	QCheckBox *chkSound;
 
+	// Randomized settings
+	QGroupBox *grpRandom;
+	QFormLayout *layRandom;
+	QSpinBox *numSeed;
 	QComboBox *selNED;
+	QCheckBox *chkRandom;
 
+	// Innate abilities
 	QGroupBox *grpInnates;
 	QVBoxLayout *layInnates;
-	
 	QCheckBox *chkPassages;
 	QCheckBox *chkPitfalls;
 	QCheckBox *chkLiteStep;
 	QCheckBox *chkDash;
 	QCheckBox *chkLearning;
-	QSpinBox *numSeed;
 
+	// Multipliers
 	QGroupBox *grpMulti;
 	QFormLayout *layMulti;
 	QHBoxLayout *layXP;
@@ -85,13 +87,20 @@ private:
 	QRadioButton *radAP[4];
 	QRadioButton *radGil[4];
 
+	// Initialization
 	void initMain(void);
 	void initInnates(void);
+	void initRandom(void);
 	void initMulti(void);
 	void initConfig(void);
+
+	// Event handlers
 	void btnROM_clicked(bool trigger);
 	void btnApply_clicked(bool trigger);
 	void btnSave_clicked(bool trigger);
+	void selMode_index(int idx);
+
+	// Where the magic happens
 	void applyPatch(QFile *file, QIODevice *Data);
 	void applyInnates(QFile *file);
 };

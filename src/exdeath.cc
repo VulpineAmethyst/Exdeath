@@ -25,7 +25,10 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <QApplication>
+
 #include "exdeath.hh"
+
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
@@ -40,16 +43,19 @@ Exdeath::Exdeath(QSettings *cfg, QWidget *parent) : QWidget(parent) {
 	layApp = new QVBoxLayout(this);
 	layColumns = new QHBoxLayout(this);
 	layApp->addLayout(layColumns);
-	layColumn2 = new QVBoxLayout(this);
+	layLeft = new QVBoxLayout(this);
+	layRight = new QVBoxLayout(this);
+	layColumns->addLayout(layLeft);
+	layColumns->addLayout(layRight);
 
 	initMain();
+	initRandom();
 	initInnates();
 	initMulti();
-	layColumns->addLayout(layColumn2);
-
 	initConfig();
 
 	connect(btnROM, &QPushButton::clicked, this, &Exdeath::btnROM_clicked);
+	connect(selMode, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &Exdeath::selMode_index);
 	connect(btnApply, &QPushButton::clicked, this, &Exdeath::btnApply_clicked);
 	connect(btnSave, &QPushButton::clicked, this, &Exdeath::btnSave_clicked);
 }
@@ -58,39 +64,58 @@ Exdeath::~Exdeath() {}
 
 void Exdeath::initMain(void) {
 	layMain = new QGridLayout(this);
-	layMode = new QVBoxLayout(this);
 	grpMain = new QGroupBox("Main");
 	grpMain->setLayout(layMain);
-	layColumns->addWidget(grpMain);
+	layLeft->addWidget(grpMain);
 
-	txtROM       = new QLabel("ROM:");
-	txtMode      = new QLabel("Mode:");
+	txtROM  = new QLabel("ROM:");
+	btnROM  = new QPushButton("Select ROM");
+
+	txtMode = new QLabel("Mode:");
+	selMode = new QComboBox();
+	selMode->addItem("Base");
+	selMode->addItem("Waddler Rebalance", "waddle.ips");
+	selMode->addItem("Balance", "balance.ips");
+	selMode->addItem("Custom Classes", "custom_classes.ips");
+
+	txtUnlock = new QLabel("Unlock Jobs:");
+	chkUnlock = new QCheckBox("Yes");
+
 	txtPortraits = new QLabel("FFT-style Portraits:");
+	chkPortraits = new QCheckBox("Yes");
+
 	txtSound     = new QLabel("Sound Restoration:");
 	txtSound->setToolTip("Requires GBA BIOS if using VisualBoyAdvance");
-	txtSeed      = new QLabel("Seed:");
-	txtNED       = new QLabel("Neo ExDeath:");
+	chkSound     = new QCheckBox("Yes");
 
-	btnROM   = new QPushButton("Select ROM");
 	btnApply = new QPushButton("Apply");
 	layApp->addWidget(btnApply);
 	btnSave  = new QPushButton("Save Config");
 
-	selMode = new QComboBox();
-	selMode->addItem("Base");
-	selMode->addItem("Randomizer", "rando/fixmagic.ips");
-	selMode->addItem("Unlocked Jobs", "unlock.ips");
-	selMode->addItem("Balance", "balance.ips");
-	selMode->addItem("Custom Classes", "custom_classes.ips");
-	selMode->addItem("Waddler Rebalance", "waddle.ips");
+	layMain->addWidget(txtROM, 0, 0);
+	layMain->addWidget(btnROM, 0, 1);
+	layMain->addWidget(txtMode, 1, 0);
+	layMain->addWidget(selMode, 1, 1);
+	layMain->addWidget(txtUnlock, 2, 0);
+	layMain->addWidget(chkUnlock, 2, 1);
+	layMain->addWidget(txtPortraits, 3, 0);
+	layMain->addWidget(chkPortraits, 3, 1);
+	layMain->addWidget(txtSound, 4, 0);
+	layMain->addWidget(chkSound, 4, 1);
+	layMain->addWidget(btnSave, 5, 1);
+}
 
-	chkPortraits = new QCheckBox("Yes");
-	chkSound     = new QCheckBox("Yes");
+void Exdeath::initRandom(void) {
+	layRandom = new QFormLayout(this);
+	grpRandom = new QGroupBox("Randomization");
+	grpRandom->setLayout(layRandom);
+	layLeft->addWidget(grpRandom);
 
 	numSeed = new QSpinBox();
 	numSeed->setRange(0, INT_MAX);
 	// provide a default value so it's not just 0 all the time
 	numSeed->setValue(time(NULL) / 3600);
+	layRandom->addRow("Seed:", numSeed);
 
 	selNED = new QComboBox();
 	selNED->addItem("Random");
@@ -119,27 +144,17 @@ void Exdeath::initMain(void) {
 	selNED->addItem("Territorial Oak", "tree.ips");
 	selNED->addItem("Thomas the Tank Engine", "thomas.ips");
 	selNED->addItem("Yiazmat", "yiazmat.ips");
+	layRandom->addRow("Neo ExDeath:", selNED);
 
-	layMain->addWidget(txtROM, 0, 0);
-	layMain->addWidget(btnROM, 0, 1);
-	layMain->addWidget(txtMode, 1, 0);
-	layMain->addWidget(selMode, 1, 1);
-	layMain->addWidget(txtPortraits, 2, 0);
-	layMain->addWidget(chkPortraits, 2, 1);
-	layMain->addWidget(txtSound, 3, 0);
-	layMain->addWidget(chkSound, 3, 1);
-	layMain->addWidget(txtSeed, 4, 0);
-	layMain->addWidget(numSeed, 4, 1);
-	layMain->addWidget(txtNED, 5, 0);
-	layMain->addWidget(selNED, 5, 1);
-	layMain->addWidget(btnSave, 6, 1);
+	chkRandom = new QCheckBox("Yes");
+	layRandom->addRow("Abilities:", chkRandom);
 }
 
 void Exdeath::initInnates(void) {
 	layInnates = new QVBoxLayout(this);
 	grpInnates = new QGroupBox("Innate abilities");
 	grpInnates->setLayout(layInnates);
-	layColumn2->addWidget(grpInnates);
+	layRight->addWidget(grpInnates);
 
 	chkPassages = new QCheckBox("Innate Passages");
 	chkPitfalls = new QCheckBox("Innate Pitfalls");
@@ -157,7 +172,7 @@ void Exdeath::initMulti(void) {
 	grpMulti = new QGroupBox("Multipliers");
 	layMulti = new QFormLayout(this);
 	grpMulti->setLayout(layMulti);
-	layColumn2->addWidget(grpMulti);
+	layRight->addWidget(grpMulti);
 
 	layXP = new QHBoxLayout(this);
 	butsXP = new QButtonGroup();
@@ -192,6 +207,11 @@ void Exdeath::initMulti(void) {
 }
 
 void Exdeath::initConfig(void) {
+	QString version = QApplication::applicationVersion();
+	// don't load config from old versions.
+	if (!version.compare(_cfg->value("main/version", version).toString())) {
+		return;
+	}
 	QString temp = _cfg->value("rom/filename", "").toString();
 
 	if (temp.length() != 0) {
@@ -213,7 +233,21 @@ void Exdeath::initConfig(void) {
 	butsGil->button(_cfg->value("multi/gil", 1).toInt())->setChecked(true);
 }
 
+void Exdeath::selMode_index(int idx) {
+	bool random_ok = false;
+	bool unlock_ok = false;
+	if (idx < 2) {
+		unlock_ok = true;
+	}
+	if (idx == 0) {
+		random_ok = true;
+	}
+	chkRandom->setEnabled(random_ok);
+	chkUnlock->setEnabled(unlock_ok);
+}
+
 void Exdeath::btnSave_clicked(bool trigger) {
+	_cfg->setValue("main/version", QApplication::applicationVersion());
 	_cfg->setValue("rom/filename", filename);
 	_cfg->setValue("main/mode", selMode->currentIndex());
 	_cfg->setValue("main/ned", selNED->currentIndex());
@@ -272,6 +306,9 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	if (mode > 0) {
 		patches << ":/patches/" + selMode->itemData(mode).toString();
 	}
+	if (chkUnlock->isChecked() && chkUnlock->isEnabled()) {
+		patches << ":/patches/unlock.ips";
+	}
 	if (chkPortraits->isChecked()) {
 		patches << ":/patches/portraits.ips";
 	}
@@ -322,7 +359,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	}
 
 	bool global_innates = (chkPassages->isChecked() || chkPitfalls->isChecked() || chkLiteStep->isChecked() || chkDash->isChecked() || chkLearning->isChecked());
-	if (mode == 1) {
+	if (chkRandom->isChecked() && chkRandom->isEnabled()) {
 		Randomizer *rando = new Randomizer(rand);
 		QFile *pfile = new QFile(output + ".ips");
 		pfile->open(QIODevice::WriteOnly);
