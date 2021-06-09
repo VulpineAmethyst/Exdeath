@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Waddle Rebalance</title>
+        <style>
+body {
+    width: 60vw;
+    margin: 0 auto;
+}
+@media (prefers-color-scheme: light) {
+    body {
+        color: #000;
+        background-color: #F2F2F2;
+    }
+    a:link, a:visited {
+        color: #05B;
+    }
+    a:hover, a:active {
+        color: #50B;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #BBB;
+        background-color: #000;
+    }
+    a:link, a:visited {
+        color: #5BF;
+    }
+    a:hover, a:active {
+        color: #B5F;
+    }
+}
+        </style>
+    </head>
+    <body>
+        <h1>Waddler Rebalance</h1>
+        <p>Hello there! First of all, thank you for taking the time to read this or even consider playing my rebalance. I really appreciate it! You can feel free to give me critique or suggestions or report any bugs in the FFV Goons Discord server, or message me directly at The Great Waddler#3967 on Discord.</p>
+        <p>My design goals for this hack are pretty simple: Give the weaker or less interesting jobs more interesting or powerful things to do. In addition to that, I'll be doing my best to fix some old bugs in the game that have been in there forever, ergo the Power Drink not actually increasing your attack and !Mineuchi having the proper paralysis associated with it.</p>
+        <p>Later on, I'll be releasing a secondary hack alongside this one that fine tunes bosses to be more fun and engaging, but this will always be an optional opt-into hack released in addition to the class rebalance. It will not be pure numbers go up, and in fact, it will include some things like tanking Omega's Evade so that non-!Rapidfire or Stoplock means of hurting it exist.</p>
+        <p>Here are the general changes from the base game to the hack!</p>
+        <h2>Class-Specific Changes</h2>
+        <h3>Knight</h3>
+        <h4>Skills</h4>
+        <ul>
+            <li><b>!Bladeblitz</b> replaces <b>Equip Armor</b>.</li>
+        </ul>
+        <h3>Monk</h3>
+        <h4>Attributes</h4>
+        <li>Base <b>Magic</b> is now 24 (previously 1).</li>
+        <h4>Equipment</h4>
+        <ul>
+            <li>Monk can now equip <b>Staff</b> weapons and <b>Mage</b> armor.</li>
+            <li>The Kaiser Knuckles now grant <b>Always: Haste</b> in addition to their other effects.</li>
+        </ul>
+        <h4>Skills</h4>
+        <ul>
+            <li>Level 4 <b>!White</b> replaces <b>HP+10%</b>.</li>
+            <li>Level 4 <b>!Spellblade</b> replaces <b>HP+20%</b>.</li>
+            <li><b>!Drink</b> replaces <b>Counter</b>. <b>Counter</b> is still Innate.</li>
+        </ul>
+        <h4>General</h4>
+        <ul>
+            <li>Fists are now <b>Magic Sword OK</b>.</li>
+        </ul>
+        <h3>Thief</h3>
+        <h4>Equipment</h4>
+        <ul>
+            <li>The Thief Gauntlets now grant +5 speed (previously +3 speed).</li>
+            <li>The Thief Gauntlets now grant <b>Always: Haste</b>. They are still only equippable by Thieves and Freelancers.</li>
+        </ul>
+        <h4>Skills</h4>
+        <ul>
+            <li><b>Read Ahead</b> replaces <b>Find Passages</b>. <b>Find Passages</b> is still Innate.</li>
+            <li><b>Long Reach</b> replaces <b>Sprint</b>. <b>Sprint</b> is still Innate.</li>
+            <li><b>!Open Fire</b> replaces <b>!Steal</b>. <b>!Steal</b> is still their Job command.</li>
+            <li><b>!Combine</b> precedes <b>Artful Dodger</b>. <b>Artful Dodger</b> is now the Level 6 ability.</li>
+            <li><b>!Mug</b> replaces <b>Vigilance</b>. <b>Vigilance</b> is still Innate.</li>
+        </ul>
+        <h4>Drops</h4>
+        <p><b>!Combine</b> ammo now drops outside of the Sealed Temple entrance:</p>
+        <ul>
+            <li><b>Buckshot</b> is a guaranteed drop from Black Flames in World 1, Birostris in World 2, and Elm Gigases in World 3.</li>
+            <li><b>Blastshot</b> is a guaranteed drop from Blood Slimes in World 2 and Executors in World 3.</li>
+            <li><b>Blitzshot</b> is a guaranteed drop from Mummies in World 3.</li>
+        </ul>
+        <h3>Geomancer</h3>
+        <h4>Attributes</h4>
+        <ul>
+            <li>Base <b>Strength</b> is now 35 (previously 28)</li>
+            <li>Base <b>Magic</b> is now 52 (previously 48).</li>
+        </ul>
+        <h4>Equipment</h4>
+        <ul>
+            <li>May now equip <b>Axes</b> and <b>Rods</b>.</li>
+        </ul>
+        <h4>Skills</h4>
+        <ul>
+            <li><b>Equip Axes</b> replaces <b>Find Pits</b>. <b>Find Pits</b> is still Innate.</li>
+            <li><b>Equip Rods</b> replaces <b>Light Step</b>. <b>Light Step</b> is still Innate.</li>
+        </ul>
+        <h3>Dragoon</h3>
+        <h4>Attributes</h4>
+        <ul>
+            <li>Base <b>Vitality</b> is now 22 (previously 14).</li>
+        </ul>
+        <h4>Equipment</h4>
+        <ul>
+            <li><b>Spears</b>, except for <b>Longinus</b> and <b>Dragon Lance</b>, have received significant Attack upgrades.</li>
+        </ul>
+        <h4>Skills</h4>
+        <ul>
+            <li><b>Lure</b> replaces <b>Equip Spears</b>.</li>
+        </ul>
+        <h3>Berserker</h3>
+        <h4>Equipment</h4>
+        <ul>
+            <li>The <b>Rune Axe</b> now has <b>First Strike</b> and its Attack was raised to 102 (previously 71).</li>
+            <li>The <b>Gaia Hammer</b> now has a chance to cast <b>Quake</b> 50% of the time (previously 25%).</li>
+        </ul>
+        <h4>Innate</h4>
+        <ul>
+            <li><b>Counter</b> added.</li>
+            <li><b>Two-Handed</b> added.</li>
+            <li><b>Exp Up</b> added.</li>
+        </ul>
+        <h4>Skills</h4>
+        <ul>
+            <li><b>Exp Up</b> replaces <b>Berserk</b>. <b>Berserk</b> is still Innate.</li>
+        </ul>
+        <h3>Ranger</h3>
+        <h4>Skills</h4>
+        <ul>
+            <li><b>!Aim</b> replaces the <b>!Attack</b> command.</li>
+            <li><b>!Animals</b> replaces <b>!Aim</b> as the Job Command.</li>
+        </ul>
+        <h3>White Mage</h3>
+        <h4>Equipment</h4>
+        <ul>
+            <li>May now equip <b>Hammers</b>.</li>
+        </ul>
+        <h4>Skills</h4>
+        <ul>
+            <li><b>!Revive</b> replaces <b>MP+10%</b>.</li>
+        </ul>
+        <h3>Summmoner</h3>
+        <h4>Skills</h4>
+        <ul>
+            <li><b>!Call</b> is moved to the first ability slot, followed by Level 1 <b></b></li>
+        </ul>
+        <h3>Red Mage</h3>
+        <p><b>Design Notes</b>: Red Mage has been redesigned from the ground up. This was intended to fill their niche as a unique hybrid rather than a sub-par fighter and mage past world 2.</p>
+        <h4>Equipment</h4>
+        <ul>
+            <li>May now equip <b>Flails</b> and <b>Bows</b>.</li>
+        </ul>
+        <h4>Skills</h4>
+        <ul>
+            <li><b>!Dualcast</b> replaces <b>!Red</b> as Job Command. Later, they will have three empty slots with !Dualcast taking place of !Attack but this is unfeasible for the moment.</li>
+            <li>Level 3 <b>!Red</b> replaces Level 1 <b>!Red</b>.</li>
+            <li><b>!Focus</b> replaces Level 2 <b>!Red</b>. This is to facilitate being able to fight rather than being a pure caster.</li>
+            <li>Level 3 <b>!Time</b> replaces Level 3 <b>!Red</b>.</li>
+        </ul>
+        <h3>Dancer</h3>
+        <h4>Attributes</h4>
+        <ul>
+            <li>Base <b>Vitality</b> is now 22 (previously 14).</li>
+        </ul>
+        <h3>Gladiator</h3>
+        <h4>Equipment</h4>
+        <ul>
+            <li>Cannot equip <b>Spears</b>.</li>
+        </ul>
+        <h3>Oracle</h3>
+        <h4>Equipment</h4>
+        <ul>
+            <li>May now equip <b>Spears</b> and <b>Knives</b>.</li>
+        </ul>
+        <h2>Monsters</h2>
+        <ul>
+            <li>The <b>White Serpents</b> in the Wind Shrine now have a chance to drop <b>Daggers</b>.</li>
+            <li>The <b>Octokrakens</b> in the Torna Canal now have a chance to drop <b>Staves</b>.</li>
+            <li><b>Page 128</b> now has the Healing Staff as a rare steal.</li>
+            <li><b>Moldwynd</b>, <b>Calcruthl</b>, <b>Undead Husks</b>, <b>Ra Mages</b>, <b>Kuza Beasts</b>, <b>Skull Eaters</b>, <b>Cure Beasts</b>, <b>Magic Dragons</b>, and <b>Level Checkers</b> now have <b>Elixirs</b> as their rare steal in addition to dropping them normally, opening up varying amounts of crime.</li>
+            <li><b>Reflect Knights</b> now have <b>Reflect Rings</b> in both drop slots.</li>
+            <li><b>Metamorph</b> now has <b>Staves of Light</b> in both drop slots.</li>
+            <li>The wild <b>Garula</b> near Carwen and the Ship Graveyard now rarely drops the <b>Thief Knife</b>.</li>
+        </ul>
+        <h2>Equipment</h2>
+        <ul>
+            <li>The <b>Thief Knife</b>'s Attack has been reduced to 18, and is a rare drop for wild <b>Garula</b>. This is to facilitate early criming for parties that lack a Thief.</li>
+            <li>The <b>Mythril Spear</b>'s Attack is now 37 (previously 30).</li>
+            <li>The <b>Spear</b>'s Attack is now 49 (previously 25). Stolen from Shell Bears.</li>
+            <li>The <b>Javelin</b>'s Attack is now 60 (previously 55). Commonly stolen from <b>Bone Dragons</b>; as a result, <b>Sand Bears</b> are common <b>Ethers</b> theft targets.</li>
+            <li>The <b>Trident</b>'s Attack is now 48 (previously 38).</li>
+            <li>The <b>Heavy Lance</b>'s Attack is now 57 (previously 54).</li>
+            <li>The <b title="Weapon. Legendary. One of twelve.">Holy Lance</b>'s Attack is now 113 (previously 109).</li>
+            <li>The <b>Longinus</b>'s Attack is now 121 (previously 132), and now gives +5 <b>Strength</b>. Theft target for <b>Stingrays</b>.</li>
+        </ul>
+        <h2>Version History</h2>
+        <ul>
+            <li><b>3.1</b>:<ul>
+                <li>Updated Ranger, Summoner, gave Thief and Knight the Cannoneer and Gladiator abilities.</li>
+                <li>Rune Axe now grants First Strike.</li>
+                <li>Thief Gauntlet now grants Always: Haste.</li>
+                <li>Logged a bug where Spears are not two handable. This will be fixed in a later release.</li>
+                <li>Fixed a bug where Berserker was dual wielding rather than two handing.</li>
+                <li>Logged a bug where the Moonring Blade was not usable to cast Haste. As a workaround, the Thief Gauntlets now grant Always: Haste but are only equippable by Thieves.</li>
+            </ul></li>
+            <li><b>3.2</b>:<ul>
+                <li>Geomancer's strength has increased to 35 (previously 28)</li>
+                <li>Dragoon now gains Lure in place of Equip Spears. This is intended to leave spears as a niche for Dragoons and Freelancers with their buffs.</li>
+                <li>Dancer's vitality has increased to 22 (previously 14). This is to put it on par with mages.</li>
+                <li>The Thief Knife's damage has been lowered to a base of 18. To compensate for this, it is now available in world 1 as a rare drop off of the fleeing Garula. The Thief Knife in Mirage is still available, but is similarly weaker.</li>
+                <li>All spears but the Dragon Lance and Longinus have had their attack stat increased to lean into the Dragoon niche of hitting as hard as possible, but only once. They are similarly only equippable by Dragoons, Freelancers, and Oracles now. This is an indirect nerf to Gladiator, I suppose.</li>
+                <li>Longinus is now available earlier than the Sealed Temple, though it has been slightly weakened for this. It is now a rare steal from Stingray in World 3.</li>
+                <li>Spears are no longer Throwable.</li>
+                <li>Monks now learn !Drink in place of Counter.</li>
+                <li>Dragoon's base strength has increased to 48 (previously 42)</li>
+                <li>Geomancers can now equip Axes and Hammers.</li>
+                <li>Oracles can now equip Spears and Knives.</li>
+                <li>The Rune Axe's base attack is now 90 (previously 71).</li>
+                <li>The Gaia Hammer now casts Quake 50% of the time (previously 25%)</li>
+            </ul>
+            <p>Bugs:</p>
+            <ul>
+                <li>Noted a bug where Berserkers cannot counter attack due to being Berserk. This will be fixed in a later patch.</li>
+            </ul></li>
+            <li><b>3.2.1</b>:<p>Bugs:</p><ul>
+                <li>Found a bug where Red Mage was not receiving three empty slots as they should be. Will require more major editing to repair, for now as a workaround, Red Mage has !Attack, !Dualcast, an empty slot, and !Item.</li>
+            </ul></li>
+            <li><b>3.3</b>:<p>Bugs:</p><ul>
+                <li>With help from Sí­le, repaired the bug where classes would not learn magic abilities properly without having the levels prior.</li>
+            </ul><p>Updates:</p><ul>
+                <li>!Combine is now Thief's capstone ability, costing 300 ABP. Their level 5 ability is now !Mug, while level 6 is Artful Dodger.</li>
+                <li>Shots of varying sorts have been added as guaranteed drops in select locations in each world. Buckshot is available in World 1, Buck and Blast are available in World 2, and all three are available in World 3. The location/enemy for each is noted in the Thief entry.</li>
+            </ul></li>
+            <li><b>3.3.1</b>:<p>Bugs:</p><ul>
+                <li>Thanks to wormsofcan, fixed a bug where Fists would not properly apply !Spellblade effects.</li>
+            </ul><p>Updates:</p><ul>
+                <li>The White Serpent in the wind shrine now has a chance of dropping a Dagger, and both of its steal slots have Daggers.</li>
+                <li>The Gaia Hammer's proc rate was reduced to 50% (previously 100%, still 25% more than vanilla).</li>
+                <li>Octokrakens can now drop Staffs.</li>
+                <li>Page 128 now has the Healing Staff as a rare steal.</li>
+                <li>Moldwynd, Calcruthl, Undead Husks, Ra Mages, Kuza Beasts, Skull Eaters, Cure Beasts, Magic Dragons, and Level Checkers now have Elixirs as their rare steal in addition to dropping them normally, opening up varying amounts of crime.</li>
+            </ul></li>
+        </ul>
+    </body>
+</html>
