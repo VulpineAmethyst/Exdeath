@@ -141,6 +141,7 @@ void Exdeath::initRandom(void) {
 	selNED->addItem("Romancing SaGa 3 Boss", "rs3boss.ips");
 	selNED->addItem("Shaq", "shaq.ips");
 	selNED->addItem("Stupid Sexy Flanders", "flanders.ips");
+	selNED->addItem("TargetNED", "targetned.ips");
 	selNED->addItem("Territorial Oak", "tree.ips");
 	selNED->addItem("Thomas the Tank Engine", "thomas.ips");
 	selNED->addItem("Yiazmat", "yiazmat.ips");

@@ -27,6 +27,7 @@
 		<file>patches/ned/pad.ips</file>
 		<file>patches/ned/rs3boss.ips</file>
 		<file>patches/ned/shaq.ips</file>
+		<file>patches/ned/targetned.ips</file>
 		<file>patches/ned/thomas.ips</file>
 		<file>patches/ned/train.ips</file>
 		<file>patches/ned/tree.ips</file>
