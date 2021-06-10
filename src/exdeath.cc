@@ -284,7 +284,11 @@ void Exdeath::btnROM_clicked(bool trigger) {
 	filename = QFileDialog::getOpenFileName(
 		this,
 		"Select ROM image",
+		#ifdef __WIN32__
+		QApplication::applicationDirPath(),
+		#else
 		QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation)[0],
+		#endif
 		"GBA ROM images (*.gba)"
 	);
 	_cfg->setValue("rom/filename", filename);
