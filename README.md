@@ -17,6 +17,6 @@ Copyright
 Exdeath is licensed under BSD-3-Clause; see `LICENSE.md` for the license terms. The patches incorporated are not original work but are freely distributable.
 
 * The [Sound Restoration patch](http://www.romhacking.net/hacks/563/) was developed by Bregalad.
-* The [Fiesta](https://www.dropbox.com/s/ldlmpoepxk5nxgl/fiesta.ups?dl=0) and ['balance'](https://www.dropbox.com/s/g52xshu0juaa2c7/ffvamod-doc.txt?dl=0) patches were developed by WormOfCans.
+* The [Fiesta](https://www.dropbox.com/s/ldlmpoepxk5nxgl/fiesta.ups?dl=0) and ['balance'](https://www.dropbox.com/s/rvf9l3pwbkelu42/ffvamod-doc.txt?dl=0) patches were developed by WormOfCans.
 * The [Waddle Rebalance patch](https://freki.aerdan.org/~TheGreatWaddler/readme.txt) was developed by The Great Waddler from the FFVGoons Discord.
 * The [Custom Classes patch](http://jeffludwig.com/ff5a/download.php) was made by Jeff Ludwig.
