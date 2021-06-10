@@ -321,6 +321,9 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	std::mt19937 rand(numSeed->value());
 	std::uniform_int_distribution<> dist(1, selNED->count() - 1);
 
+	// Unconditionally include this patch.
+	patches << ":/patches/fixnames.ips";
+
 	if (mode > 0) {
 		patches << ":/patches/" + selMode->itemData(mode).toString();
 	}

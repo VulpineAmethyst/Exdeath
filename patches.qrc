@@ -1,6 +1,7 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
 	<qresource>
+		<file>patches/fixnames.ips</file>
 		<file>patches/unlock.ips</file>
 		<file>patches/balance.ips</file>
 		<file>patches/custom_classes.ips</file>
