@@ -8,30 +8,6 @@
 		<file>patches/waddle.ips</file>
 		<file>patches/portraits.ips</file>
 		<file>patches/sound_restoration.ips</file>
-		<file>patches/ned/barf.ips</file>
-		<file>patches/ned/cactuar.ips</file>
-		<file>patches/ned/chaos.ips</file>
-		<file>patches/ned/chomp.ips</file>
-		<file>patches/ned/classic.ips</file>
-		<file>patches/ned/fancy.ips</file>
-		<file>patches/ned/flammie1.ips</file>
-		<file>patches/ned/flammie2.ips</file>
-		<file>patches/ned/flanders.ips</file>
-		<file>patches/ned/giantbeak.ips</file>
-		<file>patches/ned/godzilla.ips</file>
-		<file>patches/ned/kefka.ips</file>
-		<file>patches/ned/lavos-spawn.ips</file>
-		<file>patches/ned/mechagodzilla.ips</file>
-		<file>patches/ned/metroid.ips</file>
-		<file>patches/ned/neo-x-death.ips</file>
-		<file>patches/ned/pad.ips</file>
-		<file>patches/ned/rs3boss.ips</file>
-		<file>patches/ned/shaq.ips</file>
-		<file>patches/ned/targetned.ips</file>
-		<file>patches/ned/thomas.ips</file>
-		<file>patches/ned/train.ips</file>
-		<file>patches/ned/tree.ips</file>
-		<file>patches/ned/yiazmat.ips</file>
 		<file>patches/xp/2x.ips</file>
 		<file>patches/xp/4x.ips</file>
 		<file>patches/xp/8x.ips</file>
@@ -41,5 +17,66 @@
 		<file>patches/gil/2x.ips</file>
 		<file>patches/gil/4x.ips</file>
 		<file>patches/gil/8x.ips</file>
+		<file>gallery/ned/random.png</file>
+		<file>gallery/ned/vanilla.png</file>
+		<file>patches/ned/barf.ips</file>
+		<file>gallery/ned/barf.png</file>
+		<file>patches/ned/cactuar.ips</file>
+		<file>gallery/ned/cactuar.png</file>
+		<file>patches/ned/cad.ips</file>
+		<file>gallery/ned/cad.png</file>
+		<file>patches/ned/chaos.ips</file>
+		<file>gallery/ned/chaos.png</file>
+		<file>patches/ned/chomp.ips</file>
+		<file>gallery/ned/chomp.png</file>
+		<file>patches/ned/classic.ips</file>
+		<file>patches/ned/emperor.ips</file>
+		<file>gallery/ned/emperor.png</file>
+		<file>patches/ned/fancy.ips</file>
+		<file>gallery/ned/fancy.png</file>
+		<file>patches/ned/fiend_ned.ips</file>
+		<file>gallery/ned/fiend_ned.png</file>
+		<file>patches/ned/flammie1.ips</file>
+		<file>gallery/ned/flammie1.png</file>
+		<file>patches/ned/flammie2.ips</file>
+		<file>gallery/ned/flammie2.png</file>
+		<file>patches/ned/flanders.ips</file>
+		<file>gallery/ned/flanders.png</file>
+		<file>patches/ned/fly.ips</file>
+		<file>gallery/ned/fly.png</file>
+		<file>patches/ned/godzilla.ips</file>
+		<file>gallery/ned/godzilla.png</file>
+		<file>patches/ned/kefka.ips</file>
+		<file>gallery/ned/kefka.png</file>
+		<file>patches/ned/lavos-spawn.ips</file>
+		<file>gallery/ned/lavos-spawn.png</file>
+		<file>patches/ned/mechagodzilla.ips</file>
+		<file>gallery/ned/mechagodzilla.png</file>
+		<file>patches/ned/metroid.ips</file>
+		<file>gallery/ned/metroid.png</file>
+		<file>patches/ned/neo-x-death.ips</file>
+		<file>gallery/ned/neo-x-death.png</file>
+		<file>patches/ned/neoexduck.ips</file>
+		<file>gallery/ned/neoexduck.png</file>
+		<file>patches/ned/NeoExDesert.ips</file>
+		<file>gallery/ned/NeoExDesert.png</file>
+		<file>patches/ned/nero_exdeath.ips</file>
+		<file>gallery/ned/nero_exdeath.png</file>
+		<file>patches/ned/pad.ips</file>
+		<file>gallery/ned/pad.png</file>
+		<file>patches/ned/rs3boss.ips</file>
+		<file>gallery/ned/rs3boss.png</file>
+		<file>patches/ned/shaq.ips</file>
+		<file>gallery/ned/shaq.png</file>
+		<file>patches/ned/targetned.ips</file>
+		<file>gallery/ned/targetned.png</file>
+		<file>patches/ned/thomas.ips</file>
+		<file>gallery/ned/thomas.png</file>
+		<file>patches/ned/train.ips</file>
+		<file>gallery/ned/train.png</file>
+		<file>patches/ned/tree.ips</file>
+		<file>gallery/ned/tree.png</file>
+		<file>patches/ned/yiazmat.ips</file>
+		<file>gallery/ned/yiazmat.png</file>
 	</qresource>
 </RCC>

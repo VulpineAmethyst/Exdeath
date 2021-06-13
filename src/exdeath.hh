@@ -15,6 +15,7 @@
 #include <QGroupBox>
 #include <QIODevice>
 #include <QLabel>
+#include <QPixmap>
 #include <QPushButton>
 #include <QRadioButton>
 #include <QSettings>
@@ -97,11 +98,18 @@ private:
 	QRadioButton *radAP[4];
 	QRadioButton *radGil[4];
 
+	// NED preview
+	QGroupBox *grpPreview;
+	QVBoxLayout *layPreview;
+	QLabel *txtPreview;
+	QPixmap *imgPreview;
+
 	// Initialization
 	void initMain(void);
 	void initInnates(void);
 	void initRandom(void);
 	void initMulti(void);
+	void initPreview(void);
 	void initConfig(void);
 
 	// Event handlers
@@ -109,6 +117,7 @@ private:
 	void btnApply_clicked(bool trigger);
 	void btnSave_clicked(bool trigger);
 	void selMode_index(int idx);
+	void selNED_index(int idx);
 
 	// Where the magic happens
 	void applyPatch(QFile *file, QIODevice *Data);

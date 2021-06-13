@@ -52,10 +52,12 @@ Exdeath::Exdeath(QSettings *cfg, QWidget *parent) : QWidget(parent) {
 	initRandom();
 	initInnates();
 	initMulti();
+	initPreview();
 	initConfig();
 
 	connect(btnROM, &QPushButton::clicked, this, &Exdeath::btnROM_clicked);
 	connect(selMode, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &Exdeath::selMode_index);
+	connect(selNED, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &Exdeath::selNED_index);
 	connect(btnApply, &QPushButton::clicked, this, &Exdeath::btnApply_clicked);
 	connect(btnSave, &QPushButton::clicked, this, &Exdeath::btnSave_clicked);
 }
@@ -118,33 +120,39 @@ void Exdeath::initRandom(void) {
 	layRandom->addRow("Seed:", numSeed);
 
 	selNED = new QComboBox();
-	selNED->addItem("Random");
-	selNED->addItem("Vanilla");
+	selNED->addItem("Random", "random");
+	selNED->addItem("Vanilla", "vanilla");
 	selNED->setCurrentIndex(1);
-	selNED->addItem("Barf", "barf.ips");
-	selNED->addItem("Cactuar", "cactuar.ips");
-	selNED->addItem("Chain Chomp", "chomp.ips");
-	selNED->addItem("Classic", "classic.ips");
-	selNED->addItem("Chaos", "chaos.ips");
-	selNED->addItem("Doomtrain", "train.ips");
-	selNED->addItem("Flammie (1)", "flammie1.ips");
-	selNED->addItem("Flammie (2)", "flammie2.ips");
-	selNED->addItem("Giant Beak", "giantbeak.ips");
-	selNED->addItem("Godzilla", "godzilla.ips");
-	selNED->addItem("Lavos Spawn", "lavos-spawn.ips");
-	selNED->addItem("Kefka", "kefka.ips");
-	selNED->addItem("MechaGodzilla", "mechagodzilla.ips");
-	selNED->addItem("Metroid", "metroid.ips");
-	selNED->addItem("Neo X Death", "neo-x-death.ips");
-	selNED->addItem("Neon ExDeath", "fancy.ips");
-	selNED->addItem("Puzzle & Dragon", "pad.ips");
-	selNED->addItem("Romancing SaGa 3 Boss", "rs3boss.ips");
-	selNED->addItem("Shaq", "shaq.ips");
-	selNED->addItem("Stupid Sexy Flanders", "flanders.ips");
-	selNED->addItem("TargetNED", "targetned.ips");
-	selNED->addItem("Territorial Oak", "tree.ips");
-	selNED->addItem("Thomas the Tank Engine", "thomas.ips");
-	selNED->addItem("Yiazmat", "yiazmat.ips");
+	selNED->addItem("Barf", "barf");
+	selNED->addItem("Cactuar", "cactuar");
+	selNED->addItem("Chain Chomp", "chomp");
+	//selNED->addItem("Classic", "classic");
+	selNED->addItem("Cloud of Darkness", "cad");
+	selNED->addItem("Chaos", "chaos");
+	selNED->addItem("Doomtrain", "train");
+	selNED->addItem("Emperor", "emperor");
+	selNED->addItem("Fiends", "fiend_ned");
+	selNED->addItem("Flammie (1)", "flammie1");
+	selNED->addItem("Flammie (2)", "flammie2");
+	selNED->addItem("Fly", "fly");
+	selNED->addItem("Godzilla", "godzilla");
+	selNED->addItem("Lavos Spawn", "lavos-spawn");
+	selNED->addItem("Kefka", "kefka");
+	selNED->addItem("MechaGodzilla", "mechagodzilla");
+	selNED->addItem("Metroid", "metroid");
+	selNED->addItem("Neo X Death", "neo-x-death");
+	selNED->addItem("Nero Exdeath", "nero_exdeath");
+	selNED->addItem("Neo ExDesert", "NeoExDesert");
+	selNED->addItem("Neo ExDuck", "neoexduck");
+	selNED->addItem("Neon ExDeath", "fancy");
+	selNED->addItem("Puzzle & Dragon", "pad");
+	selNED->addItem("Romancing SaGa 3 Boss", "rs3boss");
+	selNED->addItem("Shaq", "shaq");
+	selNED->addItem("Stupid Sexy Flanders", "flanders");
+	selNED->addItem("TargetNED", "targetned");
+	selNED->addItem("Territorial Oak", "tree");
+	selNED->addItem("Thomas the Tank Engine", "thomas");
+	selNED->addItem("Yiazmat", "yiazmat");
 	layRandom->addRow("Neo ExDeath:", selNED);
 
 	chkRandom = new QCheckBox("Yes");
@@ -233,6 +241,17 @@ void Exdeath::initMulti(void) {
 	layMulti->addRow("Gil:", layGil);
 }
 
+void Exdeath::initPreview(void) {
+	grpPreview = new QGroupBox("Neo Exdeath Preview");
+	layPreview = new QVBoxLayout();
+	txtPreview = new QLabel();
+	imgPreview = new QPixmap(":/gallery/ned/vanilla.png");
+	txtPreview->setPixmap(*imgPreview);
+	grpPreview->setLayout(layPreview);
+	layPreview->addWidget(txtPreview);
+	layRight->addWidget(grpPreview);
+}
+
 void Exdeath::initConfig(void) {
 	QString version = QApplication::applicationVersion();
 	// don't load config from old versions.
@@ -255,13 +274,18 @@ void Exdeath::initConfig(void) {
 	chkLiteStep->setChecked(_cfg->value("innate/litestep", false).toBool());
 	chkDash->setChecked(_cfg->value("innate/dash", false).toBool());
 	chkLearning->setChecked(_cfg->value("innate/learning", false).toBool());
-
+#if 0
 	chkFiesta->setChecked(_cfg->value("fiesta/enable", false).toBool());
 	selFiesta->setCurrentIndex(_cfg->value("fiesta/mode", 0).toInt());
-
+#endif
 	butsXP->button(_cfg->value("multi/xp", 1).toInt())->setChecked(true);
 	butsAP->button(_cfg->value("multi/ap", 1).toInt())->setChecked(true);
 	butsGil->button(_cfg->value("multi/gil", 1).toInt())->setChecked(true);
+}
+
+void Exdeath::selNED_index(int idx) {
+	imgPreview = new QPixmap(":/gallery/ned/" + selNED->itemData(idx).toString() + ".png");
+	txtPreview->setPixmap(*imgPreview);
 }
 
 void Exdeath::selMode_index(int idx) {
@@ -303,10 +327,10 @@ void Exdeath::btnSave_clicked(bool trigger) {
 	_cfg->setValue("innate/litestep", chkLiteStep->isChecked());
 	_cfg->setValue("innate/dash", chkDash->isChecked());
 	_cfg->setValue("innate/learning", chkLearning->isChecked());
-
+#if 0
 	_cfg->setValue("fiesta/enable", chkFiesta->isChecked());
 	_cfg->setValue("fiesta/mode", selFiesta->currentIndex());
-
+#endif
 	_cfg->setValue("multi/xp", butsXP->checkedId());
 	_cfg->setValue("multi/ap", butsAP->checkedId());
 	_cfg->setValue("multi/gil", butsGil->checkedId());
@@ -378,7 +402,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		return;
 	}
 	if (idx > 1) {
-		patches << ":/patches/ned/" + selNED->itemData(idx).toString();
+		patches << ":/patches/ned/" + selNED->itemData(idx).toString() + ".ips";
 	}
 	char *XP = butsXP->checkedButton()->text().toLatin1().data();
 	if (strncmp(XP, "1", 2)) {
@@ -423,7 +447,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		pfile->close();
 		applyPatch(target, patch);
 	}
-
+#if 0
 	if (chkFiesta->isChecked()) {
 		Fiesta *fiesta = new Fiesta(rand);
 		QFile *pfile = new QFile(output + ".fiesta.ips");
@@ -434,7 +458,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		pfile->close();
 		applyPatch(target, patch);
 	}
-
+#endif
 	if (global_innates) {
 		applyInnates(target);
 	}
