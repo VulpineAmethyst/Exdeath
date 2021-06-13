@@ -25,6 +25,7 @@
 
 #include "data.hh"
 #include "randomizer.hh"
+#include "fiesta.hh"
 
 class Exdeath : public QWidget {
 public:
@@ -64,6 +65,10 @@ private:
 	QSpinBox *numSeed;
 	QComboBox *selNED;
 	QCheckBox *chkRandom;
+	QCheckBox *chkFiesta;
+	QComboBox *selFiesta;
+	QComboBox *selModifier;
+	//QCheckBox *chkVoid;
 
 	// Innate abilities
 	QGroupBox *grpInnates;

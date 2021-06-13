@@ -1,4 +1,4 @@
-enum Job {
+enum Innate {
     Passages = 0x01,
     Pitfalls = 0x02,
     LiteStep = 0x04,

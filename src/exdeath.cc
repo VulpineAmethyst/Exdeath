@@ -149,6 +149,30 @@ void Exdeath::initRandom(void) {
 
 	chkRandom = new QCheckBox("Yes");
 	layRandom->addRow("Abilities:", chkRandom);
+
+	chkFiesta = new QCheckBox("Yes");
+	layRandom->addRow("Fiesta:", chkFiesta);
+
+	selFiesta = new QComboBox();
+	selFiesta->addItem("Normal", RunNormal);
+	selFiesta->setCurrentIndex(0);
+	selFiesta->addItem("Normal 750", Run750);
+	selFiesta->addItem("Normal No750", RunNo750);
+	selFiesta->addItem("Random", RunRandom);
+	selFiesta->addItem("Random 750", RunRandom750);
+	selFiesta->addItem("Random No750", RunRandomNo750);
+	selFiesta->addItem("Chaos", RunChaos);
+	selFiesta->addItem("Chaos 750", RunChaos750);
+	selFiesta->addItem("Chaos No750", RunChaosNo750);
+	selFiesta->addItem("Pure Chaos", RunPure);
+	selFiesta->addItem("Advance", RunAdvance);
+	layRandom->addRow("Run:", selFiesta);
+
+	selModifier = new QComboBox();
+	selModifier->addItem("None", ModNone);
+	selModifier->addItem("Fifth Job", ModFifth);
+	//selModifier->addItem("Forbidden", ModVoid);
+	layRandom->addRow("Modifier:", selModifier);
 }
 
 void Exdeath::initInnates(void) {
@@ -230,6 +254,9 @@ void Exdeath::initConfig(void) {
 	chkDash->setChecked(_cfg->value("innate/dash", false).toBool());
 	chkLearning->setChecked(_cfg->value("innate/learning", false).toBool());
 
+	chkFiesta->setChecked(_cfg->value("fiesta/enable", false).toBool());
+	selFiesta->setCurrentIndex(_cfg->value("fiesta/mode", 0).toInt());
+
 	butsXP->button(_cfg->value("multi/xp", 1).toInt())->setChecked(true);
 	butsAP->button(_cfg->value("multi/ap", 1).toInt())->setChecked(true);
 	butsGil->button(_cfg->value("multi/gil", 1).toInt())->setChecked(true);
@@ -274,6 +301,9 @@ void Exdeath::btnSave_clicked(bool trigger) {
 	_cfg->setValue("innate/litestep", chkLiteStep->isChecked());
 	_cfg->setValue("innate/dash", chkDash->isChecked());
 	_cfg->setValue("innate/learning", chkLearning->isChecked());
+
+	_cfg->setValue("fiesta/enable", chkFiesta->isChecked());
+	_cfg->setValue("fiesta/mode", selFiesta->currentIndex());
 
 	_cfg->setValue("multi/xp", butsXP->checkedId());
 	_cfg->setValue("multi/ap", butsAP->checkedId());
@@ -383,7 +413,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	bool global_innates = innates_enabled && (chkPassages->isChecked() || chkPitfalls->isChecked() || chkLiteStep->isChecked() || chkDash->isChecked() || chkLearning->isChecked());
 	if (chkRandom->isChecked() && chkRandom->isEnabled()) {
 		Randomizer *rando = new Randomizer(rand);
-		QFile *pfile = new QFile(output + ".ips");
+		QFile *pfile = new QFile(output + ".random.ips");
 		pfile->open(QIODevice::WriteOnly);
 		QBuffer *patch = rando->makeRandom(global_innates);
 		pfile->write(patch->readAll());
@@ -391,6 +421,18 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		pfile->close();
 		applyPatch(target, patch);
 	}
+
+	if (chkFiesta->isChecked()) {
+		Fiesta *fiesta = new Fiesta(rand);
+		QFile *pfile = new QFile(output + ".fiesta.ips");
+		pfile->open(QIODevice::WriteOnly);
+		QBuffer *patch = fiesta->makeRun((RunType)selFiesta->currentIndex(), ModNone);
+		pfile->write(patch->readAll());
+		patch->seek(0);
+		pfile->close();
+		applyPatch(target, patch);
+	}
+
 	if (global_innates) {
 		applyInnates(target);
 	}
@@ -437,11 +479,11 @@ void Exdeath::applyPatch(QFile *file, QIODevice *data) {
 void Exdeath::applyInnates(QFile *file) {
 	unsigned char base = 0;
 
-	if (chkPassages->isChecked()) base |= Job::Passages;
-	if (chkPitfalls->isChecked()) base |= Job::Pitfalls;
-	if (chkLiteStep->isChecked()) base |= Job::LiteStep;
-	if (chkDash->isChecked())     base |= Job::Dash;
-	if (chkLearning->isChecked()) base |= Job::ILearning;
+	if (chkPassages->isChecked()) base |= Innate::Passages;
+	if (chkPitfalls->isChecked()) base |= Innate::Pitfalls;
+	if (chkLiteStep->isChecked()) base |= Innate::LiteStep;
+	if (chkDash->isChecked())     base |= Innate::Dash;
+	if (chkLearning->isChecked()) base |= Innate::ILearning;
 
 	for (int i = 0; i < 26; i++) {
 		char temp[2];
