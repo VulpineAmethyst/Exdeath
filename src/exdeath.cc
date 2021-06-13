@@ -128,8 +128,8 @@ void Exdeath::initRandom(void) {
 	selNED->addItem("Cactuar", "cactuar");
 	selNED->addItem("Chain Chomp", "chomp");
 	//selNED->addItem("Classic", "classic");
-	selNED->addItem("Cloud of Darkness", "cad");
 	selNED->addItem("Chaos", "chaos");
+	selNED->addItem("Cloud of Darkness", "cad");
 	selNED->addItem("Doomtrain", "train");
 	selNED->addItem("Emperor", "emperor");
 	selNED->addItem("Fiends", "fiend_ned");
@@ -142,10 +142,10 @@ void Exdeath::initRandom(void) {
 	selNED->addItem("MechaGodzilla", "mechagodzilla");
 	selNED->addItem("Metroid", "metroid");
 	selNED->addItem("Neo X Death", "neo-x-death");
-	selNED->addItem("Nero Exdeath", "nero_exdeath");
 	selNED->addItem("Neo ExDesert", "NeoExDesert");
 	selNED->addItem("Neo ExDuck", "neoexduck");
 	selNED->addItem("Neon ExDeath", "fancy");
+	selNED->addItem("Nero Exdeath", "nero_exdeath");
 	selNED->addItem("Puzzle & Dragon", "pad");
 	selNED->addItem("Romancing SaGa 3 Boss", "rs3boss");
 	selNED->addItem("Shaq", "shaq");
