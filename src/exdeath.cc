@@ -150,6 +150,7 @@ void Exdeath::initRandom(void) {
 	chkRandom = new QCheckBox("Yes");
 	layRandom->addRow("Abilities:", chkRandom);
 
+#if 0
 	chkFiesta = new QCheckBox("Yes");
 	layRandom->addRow("Fiesta:", chkFiesta);
 
@@ -173,6 +174,7 @@ void Exdeath::initRandom(void) {
 	selModifier->addItem("Fifth Job", ModFifth);
 	//selModifier->addItem("Forbidden", ModVoid);
 	layRandom->addRow("Modifier:", selModifier);
+#endif
 }
 
 void Exdeath::initInnates(void) {
