@@ -124,6 +124,7 @@ void Exdeath::initRandom(void) {
 	selNED->addItem("Vanilla", "vanilla");
 	selNED->setCurrentIndex(1);
 	selNED->addItem("Barf", "barf");
+	selNED->addItem("Biolizard", "biolizard");
 	selNED->addItem("Cactuar", "cactuar");
 	selNED->addItem("Chain Chomp", "chomp");
 	//selNED->addItem("Classic", "classic");
