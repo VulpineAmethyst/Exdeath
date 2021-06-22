@@ -19,6 +19,8 @@
 		<file>patches/gil/8x.ips</file>
 		<file>gallery/ned/random.png</file>
 		<file>gallery/ned/vanilla.png</file>
+		<file>patches/ned/abs_vir.ips</file>
+		<file>gallery/ned/abs_vir.png</file>
 		<file>patches/ned/barf.ips</file>
 		<file>gallery/ned/barf.png</file>
 		<file>patches/ned/biolizard.ips</file>
@@ -64,6 +66,8 @@
 		<file>gallery/ned/NeoExDesert.png</file>
 		<file>patches/ned/nero_exdeath.ips</file>
 		<file>gallery/ned/nero_exdeath.png</file>
+		<file>patches/ned/omega_cannon.ips</file>
+		<file>gallery/ned/omega_cannon.png</file>
 		<file>patches/ned/pad.ips</file>
 		<file>gallery/ned/pad.png</file>
 		<file>patches/ned/rs3boss.ips</file>

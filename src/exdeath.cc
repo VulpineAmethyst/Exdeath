@@ -123,6 +123,7 @@ void Exdeath::initRandom(void) {
 	selNED->addItem("Random", "random");
 	selNED->addItem("Vanilla", "vanilla");
 	selNED->setCurrentIndex(1);
+	selNED->addItem("Absolute Virtue", "abs_vir");
 	selNED->addItem("Barf", "barf");
 	selNED->addItem("Biolizard", "biolizard");
 	selNED->addItem("Cactuar", "cactuar");
@@ -146,6 +147,7 @@ void Exdeath::initRandom(void) {
 	selNED->addItem("Neo ExDuck", "neoexduck");
 	selNED->addItem("Neon ExDeath", "fancy");
 	selNED->addItem("Nero Exdeath", "nero_exdeath");
+	selNED->addItem("Omega Larboard Cannon", "omega_cannon");
 	selNED->addItem("Puzzle & Dragon", "pad");
 	selNED->addItem("Romancing SaGa 3 Boss", "rs3boss");
 	selNED->addItem("Shaq", "shaq");
