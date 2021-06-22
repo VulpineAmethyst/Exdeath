@@ -293,10 +293,14 @@ void Exdeath::selMode_index(int idx) {
 	bool random_ok = false;
 	bool unlock_ok = false;
 	bool innate_ok = false;
+	bool sound_ok  = false;
+	bool ned_ok    = false;
 
 	if (idx < 2) {
 		unlock_ok = true;
 		innate_ok = true;
+		sound_ok  = true;
+		ned_ok    = true;
 	}
 	if (idx == 0) {
 		random_ok = true;
@@ -305,6 +309,9 @@ void Exdeath::selMode_index(int idx) {
 	chkRandom->setEnabled(random_ok);
 
 	chkUnlock->setEnabled(unlock_ok);
+	chkSound->setEnabled(sound_ok);
+
+	selNED->setEnabled(ned_ok);
 
 	chkPassages->setEnabled(innate_ok);
 	chkPitfalls->setEnabled(innate_ok);
@@ -391,7 +398,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	if (chkPortraits->isChecked()) {
 		patches << ":/patches/portraits.ips";
 	}
-	if (chkSound->isChecked()) {
+	if (chkSound->isEnabled() && chkSound->isChecked()) {
 		patches << ":/patches/sound_restoration.ips";
 	}
 	int idx = selNED->currentIndex();
@@ -402,7 +409,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 		error->showMessage("You can't set a custom NED with this mode; it'll break.");
 		return;
 	}
-	if (idx > 1) {
+	if (selNED->isEnabled() && (idx > 1)) {
 		patches << ":/patches/ned/" + selNED->itemData(idx).toString() + ".ips";
 	}
 	char *XP = butsXP->checkedButton()->text().toLatin1().data();
