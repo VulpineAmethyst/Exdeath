@@ -40,6 +40,8 @@ Exdeath::Exdeath(QSettings *cfg, QWidget *parent) : QWidget(parent) {
 	filename = nullptr;
 	_cfg = cfg;
 
+	setWindowTitle(QApplication::applicationDisplayName() + " " + QApplication::applicationVersion());
+
 	layApp = new QVBoxLayout(this);
 	layColumns = new QHBoxLayout(this);
 	layApp->addLayout(layColumns);
