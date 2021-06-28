@@ -409,10 +409,6 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	if (idx == 0) {
 		idx = dist(rand);
 	}
-	if ((idx == 1) && (mode > 1)) {
-		error->showMessage("You can't set a custom NED with this mode; it'll break.");
-		return;
-	}
 	if (selNED->isEnabled() && (idx > 1)) {
 		patches << ":/patches/ned/" + selNED->itemData(idx).toString() + ".ips";
 	}
