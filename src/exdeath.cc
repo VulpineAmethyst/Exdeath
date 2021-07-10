@@ -412,6 +412,9 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	if (selNED->isEnabled() && (idx > 1)) {
 		patches << ":/patches/ned/" + selNED->itemData(idx).toString() + ".ips";
 	}
+	if (chkRandom->isChecked() && chkRandom->isEnabled()) {
+		patches << ":/patches/rando/fixmagic.ips";
+	}
 	char *XP = butsXP->checkedButton()->text().toLatin1().data();
 	if (strncmp(XP, "1", 2)) {
 		QString temp = ":/patches/xp/";
