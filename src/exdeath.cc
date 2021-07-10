@@ -135,13 +135,18 @@ void Exdeath::initRandom(void) {
 	selNED->addItem("Cloud of Darkness", "cad");
 	selNED->addItem("Doomtrain", "train");
 	selNED->addItem("Emperor", "emperor");
+	selNED->addItem("Fat Chocobo", "NeoExChonk");
 	selNED->addItem("Fiends", "fiend_ned");
 	selNED->addItem("Flammie (1)", "flammie1");
 	selNED->addItem("Flammie (2)", "flammie2");
 	selNED->addItem("Fly", "fly");
 	selNED->addItem("Godzilla", "godzilla");
+	selNED->addItem("Guy Fieri", "flavortown");
+	selNED->addItem("Jace", "Jace");
 	selNED->addItem("Lavos Spawn", "lavos-spawn");
 	selNED->addItem("Kefka", "kefka");
+	selNED->addItem("Majima", "Majima");
+	selNED->addItem("Majima (flipped)", "MajimaFlipped");
 	selNED->addItem("MechaGodzilla", "mechagodzilla");
 	selNED->addItem("Metroid", "metroid");
 	selNED->addItem("Neo X Death", "neo-x-death");
@@ -157,7 +162,10 @@ void Exdeath::initRandom(void) {
 	selNED->addItem("TargetNED", "targetned");
 	selNED->addItem("Territorial Oak", "tree");
 	selNED->addItem("Thomas the Tank Engine", "thomas");
+	selNED->addItem("Warriors of Light", "BizarroParty");
+	selNED->addItem("Warriors of Light (Fiesta)", "FiestaParty");
 	selNED->addItem("Yiazmat", "yiazmat");
+	selNED->addItem("Zeromus", "Zeromus");
 	layRandom->addRow("Neo ExDeath:", selNED);
 
 	chkRandom = new QCheckBox("Yes");

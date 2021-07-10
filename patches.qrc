@@ -25,6 +25,8 @@
 		<file>gallery/ned/barf.png</file>
 		<file>patches/ned/biolizard.ips</file>
 		<file>gallery/ned/biolizard.png</file>
+		<file>patches/ned/BizarroParty.ips</file>
+		<file>gallery/ned/BizarroParty.png</file>
 		<file>patches/ned/cactuar.ips</file>
 		<file>gallery/ned/cactuar.png</file>
 		<file>patches/ned/cad.ips</file>
@@ -40,26 +42,38 @@
 		<file>gallery/ned/fancy.png</file>
 		<file>patches/ned/fiend_ned.ips</file>
 		<file>gallery/ned/fiend_ned.png</file>
+		<file>patches/ned/FiestaParty.ips</file>
+		<file>gallery/ned/FiestaParty.png</file>
 		<file>patches/ned/flammie1.ips</file>
 		<file>gallery/ned/flammie1.png</file>
 		<file>patches/ned/flammie2.ips</file>
 		<file>gallery/ned/flammie2.png</file>
+		<file>patches/ned/flavortown.ips</file>
+		<file>gallery/ned/flavortown.png</file>
 		<file>patches/ned/flanders.ips</file>
 		<file>gallery/ned/flanders.png</file>
 		<file>patches/ned/fly.ips</file>
 		<file>gallery/ned/fly.png</file>
 		<file>patches/ned/godzilla.ips</file>
 		<file>gallery/ned/godzilla.png</file>
+		<file>patches/ned/Jace.ips</file>
+		<file>gallery/ned/Jace.png</file>
 		<file>patches/ned/kefka.ips</file>
 		<file>gallery/ned/kefka.png</file>
 		<file>patches/ned/lavos-spawn.ips</file>
 		<file>gallery/ned/lavos-spawn.png</file>
+		<file>patches/ned/Majima.ips</file>
+		<file>gallery/ned/Majima.png</file>
+		<file>patches/ned/MajimaFlipped.ips</file>
+		<file>gallery/ned/MajimaFlipped.png</file>
 		<file>patches/ned/mechagodzilla.ips</file>
 		<file>gallery/ned/mechagodzilla.png</file>
 		<file>patches/ned/metroid.ips</file>
 		<file>gallery/ned/metroid.png</file>
 		<file>patches/ned/neo-x-death.ips</file>
 		<file>gallery/ned/neo-x-death.png</file>
+		<file>patches/ned/NeoExChonk.ips</file>
+		<file>gallery/ned/NeoExChonk.png</file>
 		<file>patches/ned/neoexduck.ips</file>
 		<file>gallery/ned/neoexduck.png</file>
 		<file>patches/ned/NeoExDesert.ips</file>
@@ -84,5 +98,7 @@
 		<file>gallery/ned/tree.png</file>
 		<file>patches/ned/yiazmat.ips</file>
 		<file>gallery/ned/yiazmat.png</file>
+		<file>patches/ned/Zeromus.ips</file>
+		<file>gallery/ned/Zeromus.png</file>
 	</qresource>
 </RCC>
