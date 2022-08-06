@@ -3,6 +3,7 @@
 	<qresource>
 		<file>patches/fixnames.ips</file>
 		<file>patches/unlock.ips</file>
+		<file>patches/Ian's Balance Patch.ips</file>
 		<file>patches/balance.ips</file>
 		<file>patches/custom_classes.ips</file>
 		<file>patches/waddle.ips</file>

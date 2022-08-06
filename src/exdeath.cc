@@ -78,6 +78,7 @@ void Exdeath::initMain(void) {
 	txtMode = new QLabel("Mode:");
 	selMode = new QComboBox();
 	selMode->addItem("Base");
+	selMode->addItem("Ian's Balance", "Ian's Balance Patch.ips");
 	selMode->addItem("Waddler Rebalance", "waddle.ips");
 	selMode->addItem("Balance", "balance.ips");
 	selMode->addItem("Custom Classes", "custom_classes.ips");
@@ -308,13 +309,13 @@ void Exdeath::selMode_index(int idx) {
 	bool sound_ok  = false;
 	bool ned_ok    = false;
 
-	if (idx < 2) {
+	if (idx < 3) {
 		unlock_ok = true;
 		innate_ok = true;
 		sound_ok  = true;
 		ned_ok    = true;
 	}
-	if (idx == 0) {
+	if (idx <= 1) {
 		random_ok = true;
 	}
 
