@@ -26,6 +26,7 @@
  */
 
 #include <QApplication>
+#include <QTextStream>
 
 #include "exdeath.hh"
 
@@ -268,8 +269,20 @@ void Exdeath::initPreview(void) {
 
 void Exdeath::initConfig(void) {
 	QString version = QApplication::applicationVersion();
+	QStringList parts = version.split(".");
+	if (parts.length() > 2) {
+		parts.removeLast();
+		version = parts.join(".");
+	}
+	QString cfgVersion = _cfg->value("main/version").toString();
+	parts = cfgVersion.split(".");
+	if (parts.length() > 2) {
+		parts.removeLast();
+		cfgVersion = parts.join(".");
+	}
 	// don't load config from old versions.
-	if (!version.compare(_cfg->value("main/version", version).toString())) {
+	if (version.compare(cfgVersion) != 0) {
+		out << "doesn't match!\n";
 		return;
 	}
 	QString temp = _cfg->value("rom/filename", "").toString();
@@ -335,7 +348,13 @@ void Exdeath::selMode_index(int idx) {
 }
 
 void Exdeath::btnSave_clicked(bool trigger) {
-	_cfg->setValue("main/version", QApplication::applicationVersion());
+	QString version = QApplication::applicationVersion();
+	QStringList parts = version.split(".");
+	if (parts.length() > 2) {
+		parts.removeLast();
+		version = parts.join(".");
+	}
+	_cfg->setValue("main/version", version);
 	_cfg->setValue("rom/filename", filename);
 	_cfg->setValue("main/mode", selMode->currentIndex());
 	_cfg->setValue("main/ned", selNED->currentIndex());
