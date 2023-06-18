@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Ian's Balance Patch</title>
+		<style>
+body {
+    width: 60vw;
+    margin: 0 auto;
+}
+@media (prefers-color-scheme: light) {
+    body {
+        color: #000;
+        background-color: #F2F2F2;
+    }
+    a:link, a:visited {
+        color: #05B;
+    }
+    a:hover, a:active {
+        color: #50B;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #BBB;
+        background-color: #000;
+    }
+    a:link, a:visited {
+        color: #5BF;
+    }
+    a:hover, a:active {
+        color: #B5F;
+    }
+}
+
+		</style>
+	</head>
+	<body>
+		<nav>
+			<ul>
+				<li><a href="#extpatches">External Patches</a></li>
+				<li><a href="#jobs">Jobs</a></li>
+				<li><a href="#equip">Equipment</a></li>
+				<li><a href="#abilities">Abilities</a></li>
+				<li><a href="#enemies">Enemies</a></li>
+				<li><a href="#chests">Chests</a></li>
+				<li><a href="#shops">Shops</a></li>
+				<li><a href="#thanks">Special Thanks</a></li>
+				<li><a href="#changes">Version History</a></li>
+			</ul>
+		</nav>
+		<h1 id="extpatches">External Patches</h1>
+		<ul>
+			<li>Magic fix (by Canofworms)</li>
+			<li>Music Player names fix (by Mateo)</li>
+		</ul>
+		<h1 id="jobs">Jobs</h1>
+		<h2>Knight</h2>
+		<ul>
+			<li>Bladeblitz replaces Equip Armor.</li>
+			<li>Equip Shields is now the Level 5 ability.</li>
+		</ul>
+		<h2>Thief</h2>
+		<ul>
+			<li>Long Reach replaces Find Passages. Find Passages is still innate.</li>
+			<li>Light Step replaces Sprint. Sprint is still innate.</li>
+			<li>HP+10% replaces Vigilance. Vigilance is still innate.</li>
+		</ul>
+		<h2>Monk</h2>
+		<ul>
+			<li>!Spellblade3 replaces Counter. Counter is still innate.</li>
+			<li>!Drink replaces HP +10%.</li>
+			<li>EXP Up replaces HP +20%.</li>
+		</ul>
+		<h2>White Mage</h2>
+		<ul>
+			<li>Can now equip Hammers.</li>
+			<li>Gains !Revive instead of MP +10% as its capstone.</li>
+		</ul>
+		<h2>Blue Mage</h2>
+		<ul>
+			<li>Scan is now a Level 1 ability.</li>
+			<li>MP +30% is the new capstone.</li>
+		</ul>
+		<h2>Red Mage</h2>
+		<ul>
+			<li>Strength upped to 37 (was 32).</li>
+			<li>!Red3 is the Level 1 ability.</li>
+			<li>!Focus is the Level 2 ability.</li>
+			<li>!Time4 is the Level 3 ability.</li>
+			<li>Reduced the ABP needed to master X-Magic to 400.</li>
+		</ul>
+		<h2>Berserker</h2>
+		<ul>
+			<li>Can now have 3 innate abilities equipped.</li>
+		</ul>
+		<h2>Summoner</h2>
+		<ul>
+			<li>!Call is now the Level 1 ability. The 5 levels of Summon are moved up 1 level.</li>
+		</ul>
+		<h2>Ninja</h2>
+		<ul>
+			<li>!Black3 replaces First Strike. First Strike is still innate.</li>
+		</ul>
+		<h2>Geomancer</h2>
+		<ul>
+			<li>Strength raised to 32 (was 27).</li>
+			<li>Can now equip Axes.</li>
+			<li>Equip Axes replaces Light Step. Light Step is still innate.</li>
+		</ul>
+		<h2>Samurai</h2>
+		<ul>
+			<li>Translated ability names, which were simply romanized in Vanilla Advance.</li>
+		</ul>
+		<h2>Dancer</h2>
+		<ul>
+			<li>Vitality raised to 20 (was 14).</li>
+		</ul>
+		<h2>Mime</h2>
+		<ul>
+			<li>Reduced the ABP needed to master Mimic to 255.</li>
+		</ul>
+		<h2>Oracle, Gladiator, Cannoneer, <strike>Sir Not Appearing In This Game</strike> Necromancer</h2>
+		<ul>
+			<li>The 3 GBA jobs now have innate Sprint.</li>
+			<li>Oracle can now equip Hammers.</li>
+			<li>Gladiator can no longer equip Knight Swords.</li>
+			<li>Gladiator's main ability is now Bladeblitz.</li>
+		</ul>
+		<h1 id="equip">Equipment</h1>
+		<h2>Renamed</h2>
+		<ul>
+			<li>Main Gauche &rarr; Guardian</li>
+			<li>Ultima Weapon &rarr; Atma Weapon</li>
+			<li>Red Slippers &rarr; Red Shoes</li>
+		</ul>
+		<h2>Changed</h2>
+		<ul>
+			<li>Flametounge and Icebrand are now a Sword rather than a Knight Sword.</li>
+			<li>Thor's Hammer is now Thunder elemental.</li>
+			<li>Gold Hairpin, Knife, Dagger and Mythril Knife are now usable by all classes.</li>
+		</ul>
+		<h1 id="abilities">Abilities</h1>
+		<h2>Renamed</h2>
+		<ul>
+			<li>Zeninage &rarr; Gil Toss</li>
+			<li>Mineuchi &rarr; Blade Bash</li>
+			<li>Iainuki &rarr; Slash</li>
+			<li>Shirahadori &rarr; Evade</li>
+			<li>Rapid Fire &rarr; X-Fight</li>
+			<li>Dualcast &rarr; X-Magic</li>
+		</ul>
+		<h1 id="enemies">Enemies</h1>
+		<h2>Renamed</h2>
+		<ul>
+			<li>Cait Sith (Metamorph) &rarr; Gaelicat</li>
+			<li>Wendigo &rarr; Stalker</li>
+			<li>Archeodemon &rarr; Atma Weapon</li>
+			<li>Guardian &rarr; Vegnagun</li>
+		</ul>
+		<h2>Steals</h2>
+		<ul><li>Gogo's Leather Armor is replaced with a second Mirage Vest.</li></ul>
+		<h2>Drops</h2>
+		<ul>
+			<li>The human form of Liquid Flame now drops a Flame Rod.</li>
+			<li>The hand form of Liquid Flame now drops a Flame Shield.</li>
+		</ul>
+		<h2>Stats</h2>
+		<ul>
+			<li>Reduced Omega's evade from 95% to 65%.</li>
+			<li>Removed Exdeath's unused Meteo AI phase from his Meatfort battle.</li>
+			<li>Replaced Atma Weapon's Death counter with a 33% each chance of Firaga, Haste or Blink.</li>
+		</ul>
+		<h1>Chests</h1>
+		<ul>
+			<li>The Karnak 500 chest that once contained a Thunder Scroll now contains a Thunder Rod.</li>
+			<li>The Thief's Glove is moved to the Chest in Ronka that contained a second Main Gauche.</li>
+			<li>The chest the Thief's Gloves once occupied now holds Blizzara.</li>
+			<li>The chest in Bal that contained a Hero Cocktail now has a Gaia Gear.</li>
+			<li>A Phoenix Down chest in Drakenvale now holds Romeo's Ballad.</li>
+			<li>A Reflect Ring replaces the Blood Sword as a Monster-in-a-Box in Barrier Tower.</li>
+			<li>A Gold Hairpin replaces a Red Shoes pair guarded by 3 old men.</li>
+		</ul>
+		<h1 id="shops">Shops</h1>
+		<ul>
+			<li>The World 2 magic shops now have some World 1 spells so as to not screw over #Fifthjob users.</li>
+			<li>Mirage Village shop now sells Buckshot and Blastshot.</li>
+		</ul>
+		<h1 id="thanks">Special Thanks</h1>
+		<ul>
+			<li>Square Enix for making this awesome game.</li>
+			<li>Nintendo for their localization of FFV.</li>
+			<li>Can of Worms for helping with hex editing.</li>
+			<li>The Great Waddler for his balance patch, which provided inspiration.</li>
+			<li>The FFVGoons Discord for their friendliness.</li>
+		</ul>
+		<h1 id="changes">Version History</h1>
+		<dl>
+			<dt>1.0</dt>
+			<dd>Initial release.</dd>
+			<dt>1.1</dt>
+			<dd>Added 3 Universal Weapons, fixed Unarmed Spellblade and raised Dancer Vitality.</dd>
+			<dt>1.11</dt>
+			<dd>Moved Drink on Monk to 100 ABP and Spellblade3 on Monk to 60 ABP, updated Mirage shops.</dd>
+		</dl>
+	</body>
+</html>
