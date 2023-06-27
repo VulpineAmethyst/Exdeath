@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Sheila Aman.
+ * Copyright (c) 2023, Síle Ekaterin Liszka.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
