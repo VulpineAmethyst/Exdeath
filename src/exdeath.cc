@@ -27,6 +27,7 @@
 
 #include <QApplication>
 #include <QTextStream>
+#include <iostream>
 
 #include "exdeath.hh"
 
@@ -282,7 +283,7 @@ void Exdeath::initConfig(void) {
 	}
 	// don't load config from old versions.
 	if (version.compare(cfgVersion) != 0) {
-		out << "doesn't match!\n";
+		std::cout << "doesn't match!\n";
 		return;
 	}
 	QString temp = _cfg->value("rom/filename", "").toString();
