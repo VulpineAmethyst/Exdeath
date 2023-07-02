@@ -280,8 +280,12 @@ void Exdeath::initConfig(void) {
 
 void Exdeath::selNED_index(int idx) {
 	QString filename = selNED->itemData(idx).toString();
-	if (!filename.startsWith(":")) {
-		filename.append(".png");
+	if (filename == "random") {
+		filename = ":/gallery/ned/random.png";
+	} else if (filename == "vanilla") {
+		filename = ":/gallery/ned/vanilla.png";
+	} else {
+		filename += ".png";
 	}
 	imgPreview = new QPixmap(filename);
 	txtPreview->setPixmap(*imgPreview);
