@@ -16,6 +16,7 @@
 #include <QIODevice>
 #include <QLabel>
 #include <QList>
+#include <QMessageBox>
 #include <QPixmap>
 #include <QPushButton>
 #include <QRadioButton>
