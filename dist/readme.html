@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Exdeath 0.2 readme</title>
+        <title>Exdeath readme</title>
         <style>
 body {
     width: 60vw;
@@ -36,16 +36,33 @@ body {
     <head>
     <body>
         <h2>Exdeath</h2>
-        <p>Exdeath is a patch compactor, a tool that applies multiple patches to a single target file. You will need the US version of the Gameboy Advance release, which you can find through your favourite search engine. This version provides the following features:</p>
+        <p>Exdeath is a patch compactor, a tool that applies multiple patches to a single target file. You will need the US version of the Gameboy Advance release, which you can find through your favourite search engine. </p>
+        <p>The program should have the following file layout:</p>
+        <ul>
+            <li><tt>Exdeath.exe</tt> — the program itself.</li>
+            <li><tt>libgcc_s_seh-1.dll</tt> — base library for programs built with GCC for Windows.</li>
+            <li><tt>libstdc++-6.dll</tt> — base library for C++ programs.</li>
+            <li><tt>libwinpthread-1.dll</tt> — library for threaded execution.</li>
+            <li><tt>modes/</tt> — This directory contains patches which alter Final Fantasy V Advance gameplay significantly.</li>
+            <li><tt>ned/</tt> — This directory contains patches which replace Neo Exdeath graphics.</li>
+            <li><tt>platforms/qwindows.dll</tt> — Qt 6 platform library for Windows.</li>
+            <li><tt>Qt6Core.dll</tt> — Qt 6 core library.</li>
+            <li><tt>Qt6Gui.dll</tt> — Qt 6 GUI library.</li>
+            <li><tt>Qt6Widgets.dll</tt> — Qt 6 widgets library.</li>
+            <li><tt>readme.html</tt> — This document, which you are reading now.</li>
+            <li><tt>readme.balance.html</tt> — Documentation for Ian's Rebalance patch.</li>
+            <li><tt>readme.waddle.html</tt> — Documentation for The Great Waddler's Balance patch.</li>
+        </ul>
+        <p>This version provides the following features:</p>
         <h3>Main</h3>
-        <p>The real meat of the program: the patches.</p>
+        <p>The real meat of the program: the patches. As of 0.10.0, only the base game is built in to Exdeath. You can add more modes by placing them in the <tt>modes/</tt> directory. No support is provided for mode patches which did not come with Exdeath, however.</p>
         <ul>
             <li><b>Base</b>:<ul>
                 <li>None &mdash; The base game.</li>
-                <li><a href="readme.waddle.html">Waddle Rebalance</a> &mdash; Yet another remixed version which aims to pump up some underwhelming Jobs without altering overall balance too much.</li>
+                <li><a href="http://jeffludwig.com/ff5a/download.php">Custom Classes</a> &mdash; A different remixed version by ludmeister.</li>
                 <li><a href="readme.balance.html">Ian's Rebalance</a> &mdash; A remixed version that has a more subtle touch than the other three.</li>
                 <li><a href="https://www.dropbox.com/s/rvf9l3pwbkelu42/ffvamod-doc.txt?dl=0">Balance</a> &mdash; A remixed version which adds the Hero Job and changes things up.</li>
-                <li><a href="http://jeffludwig.com/ff5a/download.php">Custom Classes</a> &mdash; A different remixed version by ludmeister.</li>
+                <li><a href="readme.waddle.html">Waddler Rebalance</a> &mdash; Yet another remixed version which aims to pump up some underwhelming Jobs without altering overall balance too much.</li>
             </ul></li>
             <li><b>Unlocked Jobs</b>: Unlocks all jobs directly out of the gate. Half of <a href="https://www.dropbox.com/s/ldlmpoepxk5nxgl/fiesta.ups?dl=0">wormsofcan's Fiesta patch</a>.</li>
             <li><b>FFT-style Portraits</b>: As the name implies, this option replaces the portraits with edited Final Fantasy Tactics portraits. (missing attribution, sorry.)</li>
@@ -53,59 +70,18 @@ body {
             <li><b>Save Config</b>: Saves your current configuration, including the ROM location. This configuration will be automatically loaded on next run.</li>
         </ul>
         <h3>Randomization</h3>
-        <p>Randomizable components.</p>
+        <p>Randomizable components. Note that, as of 0.10.0, you can add your own Neo Exdeath patches by placing them in the <tt>ned/</tt> directory.</p>
         <ul>
             <li><b>Seed</b>: A number used to set the random number generator to a known state. The range accepted is 0 through 2<sup>31</sup> &ndash; 1, inclusive. Default value is the current time in seconds since 1 January 1970 00:00 UTC, divided by 3600.</li>
-            <li><b>Neo ExDeath</b>: Pick graphics for the final boss.<ul>
-                <li>Random: Chooses a random NED.</li>
-                <li>Vanilla: The original.</li>
-                <li>Absolute Virtue: From Final Fantasy XI: Chains of Promathia.</li>
-                <li>Barf: From Earthbound.</li>
-                <li>Biolizard: A biolizard from Sonic Adventure 2.</li>
-                <li>Cactuar: Jumbotender/gigantuar from Final Fantasy VI Advance.</li>
-                <li>Chain Chomp: From the Mario series.</li>
-                <li>Chaos: From Final Fantasy I: Dawn of Souls.</li>
-                <!--<li>Classic: Assembled from Final Fantasy I bosses.</li>-->
-                <li>Cloud of Darkness: From Final Fantasy III.</li>
-                <li>Doomtrain: From Final Fantasy VI.</li>
-                <li>Emperor: From Final Fantasy II.</li>
-                <li>Fat Chocobo: From Final Fantasy VII.</li>
-                <li>Fiends: From Final Fantasy IV.</li>
-                <li>Flammie: From Secret of Mana; the Mana Beast versions.</li>
-                <li>Fly: From Breath of Fire 2.</li>
-                <li>Godzilla: From Super Godzilla.</li>
-                <li>Guy Fieri: From AFK.</li>
-                <li>Jace: From Magic: the Gathering.</li>
-                <li>Kefka: From Final Fantasy VI.</li>
-                <li>Lavos Spawn: From Chrono Trigger.</li>
-                <li>Majima: From Yakuza VIII.</li>
-                <li>Majima (flipped): Above, but flipped.</li>
-                <li>MechaGodzilla: From Super Godzilla.</li>
-                <li>Metroid: From Super Metroid.</li>
-                <li>Neo ExDesert: From this very game.</li>
-                <li>Neo ExDuck: From "A Duck Amuck".</li>
-                <li>Neo X Death: From The Matrix, Megaman X, and Super Castlevania IV.</li>
-                <li>Neon Exdeath: From the Mobile/PC port of Final Fantasy V.</li>
-                <li>Nero Exdeath: Did you know that the critically-acclaimed MMORPG Final Fantasy XIV has an expanded free trial? you can play through the entirety of "A Realm Reborn" and the award-winning "Heavensward" expansion up to level 60 for <b>free</b> with no restriction on playtime.</li>
-                <li>Omega Larboard Cannon: From Final Fantasy XIV.</li>
-                <li>Puzzle &amp; Dragon: From the Puzzle And Dragon crossover.</li>
-                <li>Romancing SaGa 3 Boss: Guess where.</li>
-                <li>Shaq: Himself.</li>
-                <li>Stupid Sexy Flanders: From The Simpsons.</li>
-                <li>Territorial Oak: From Earthbound?</li>
-                <li>Warriors of Light: From a Japanese artist who flippped the perspective of the fight with Gilgamesh and Enkidu on the ship.</li>
-                <li>Warriors of Light (fiesta): Above, but edited to resemble a more normal Fiesta party.</li>
-                <li>Yiazmat: From Final Fantasy: Record Keeper.</li>
-            </ul></li>
+            <li><b>Neo ExDeath</b>: Pick graphics for the final boss.</li>
             <li><b>Abilities</b>: Shuffles abilities such that all Jobs learn five abilities and have a randomized command.</li>
         </ul>
-        <p>There is one graphic present that will not be enumerated. You'll know it when you see it.</p>
         <h3>Innate abilities</h3>
         <p>Each checkbox applies the listed innate ability to all Jobs.</p>
         <h3>Multipliers</h3>
         <p>Multiply experience, ability point, or gil awards from battle. Experience and gil are hard-capped at 65,535 and ability points are hard-capped at 255, regardless of multiplier.</p>
         <h2>Notes</h2>
-        <p>The 'Unlocked Jobs' mode includes a patch that allows <b>!Combine</b> ammo to drop prior to unlocking the sealed weapons. This alters the drop tables for the following enemies:</p>
+        <p>The 'Unlocked Jobs' patch includes a patch that allows <b>!Combine</b> ammo to drop prior to unlocking the sealed weapons. This alters the drop tables for the following enemies:</p>
         <ul>
             <li>Buckshot:<ul>
                 <li>Black Flame</li>
