@@ -45,7 +45,6 @@ int main(int argc, char **argv) {
 	QString path = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation)[0];
 #endif
 	QDir dir = QDir(path);
-	std::cout << "Searching in" << path.toStdString() << std::endl;
 	QList<QPair<QString,QString> > modes = getPatchList(dir, PatchType::Mode);
 	QList<QPair<QString,QString> > NEDs = getPatchList(dir, PatchType::NED);
 
