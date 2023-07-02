@@ -30,6 +30,7 @@
 #include <iostream>
 
 #include "exdeath.hh"
+#include "patch.hh"
 
 #include <cstring>
 #include <cstdlib>
@@ -37,7 +38,7 @@
 #include <ctime>
 #include <climits>
 
-Exdeath::Exdeath(QSettings *cfg, QWidget *parent) : QWidget(parent) {
+Exdeath::Exdeath(QSettings *cfg, QList<QPair<QString,QString> > modes, QList<QPair<QString,QString> > NEDs, QWidget *parent) : QWidget(parent) {
 	error = new QErrorMessage();
 	filename = nullptr;
 	_cfg = cfg;
@@ -52,15 +53,15 @@ Exdeath::Exdeath(QSettings *cfg, QWidget *parent) : QWidget(parent) {
 	layColumns->addLayout(layLeft);
 	layColumns->addLayout(layRight);
 
-	initMain();
-	initRandom();
+	initMain(modes);
+	initRandom(NEDs);
 	initInnates();
 	initMulti();
 	initPreview();
 	initConfig();
 
 	connect(btnROM, &QPushButton::clicked, this, &Exdeath::btnROM_clicked);
-	connect(selMode, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &Exdeath::selMode_index);
+	connect(selMode, QOverload<int>::of(&QComboBox::activated), this, &Exdeath::selMode_index);
 	connect(selNED, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &Exdeath::selNED_index);
 	connect(btnApply, &QPushButton::clicked, this, &Exdeath::btnApply_clicked);
 	connect(btnSave, &QPushButton::clicked, this, &Exdeath::btnSave_clicked);
@@ -68,7 +69,7 @@ Exdeath::Exdeath(QSettings *cfg, QWidget *parent) : QWidget(parent) {
 
 Exdeath::~Exdeath() {}
 
-void Exdeath::initMain(void) {
+void Exdeath::initMain(QList<QPair<QString,QString> > modes) {
 	layMain = new QGridLayout(this);
 	grpMain = new QGroupBox("Main");
 	grpMain->setLayout(layMain);
@@ -80,10 +81,12 @@ void Exdeath::initMain(void) {
 	txtMode = new QLabel("Mode:");
 	selMode = new QComboBox();
 	selMode->addItem("Base");
-	selMode->addItem("Ian's Balance", "Ian's Balance Patch.ips");
-	selMode->addItem("Waddler Rebalance", "waddle.ips");
-	selMode->addItem("Balance", "balance.ips");
-	selMode->addItem("Custom Classes", "custom_classes.ips");
+
+	for (int i = 0; i < modes.size(); i++) {
+		QPair<QString,QString> file = modes.at(i);
+
+		selMode->addItem(file.first, file.second);
+	}
 
 	txtUnlock = new QLabel("Unlock Jobs:");
 	chkUnlock = new QCheckBox("Yes");
@@ -112,7 +115,7 @@ void Exdeath::initMain(void) {
 	layMain->addWidget(btnSave, 5, 1);
 }
 
-void Exdeath::initRandom(void) {
+void Exdeath::initRandom(QList<QPair<QString,QString> > NEDs) {
 	layRandom = new QFormLayout(this);
 	grpRandom = new QGroupBox("Randomization");
 	grpRandom->setLayout(layRandom);
@@ -128,47 +131,11 @@ void Exdeath::initRandom(void) {
 	selNED->addItem("Random", "random");
 	selNED->addItem("Vanilla", "vanilla");
 	selNED->setCurrentIndex(1);
-	selNED->addItem("Absolute Virtue", "abs_vir");
-	selNED->addItem("Barf", "barf");
-	selNED->addItem("Biolizard", "biolizard");
-	selNED->addItem("Cactuar", "cactuar");
-	selNED->addItem("Chain Chomp", "chomp");
-	//selNED->addItem("Classic", "classic");
-	selNED->addItem("Chaos", "chaos");
-	selNED->addItem("Cloud of Darkness", "cad");
-	selNED->addItem("Doomtrain", "train");
-	selNED->addItem("Emperor", "emperor");
-	selNED->addItem("Fat Chocobo", "NeoExChonk");
-	selNED->addItem("Fiends", "fiend_ned");
-	selNED->addItem("Flammie (1)", "flammie1");
-	selNED->addItem("Flammie (2)", "flammie2");
-	selNED->addItem("Fly", "fly");
-	selNED->addItem("Godzilla", "godzilla");
-	selNED->addItem("Guy Fieri", "flavortown");
-	selNED->addItem("Jace", "Jace");
-	selNED->addItem("Lavos Spawn", "lavos-spawn");
-	selNED->addItem("Kefka", "kefka");
-	selNED->addItem("Majima", "Majima");
-	selNED->addItem("Majima (flipped)", "MajimaFlipped");
-	selNED->addItem("MechaGodzilla", "mechagodzilla");
-	selNED->addItem("Metroid", "metroid");
-	selNED->addItem("Neo X Death", "neo-x-death");
-	selNED->addItem("Neo ExDesert", "NeoExDesert");
-	selNED->addItem("Neo ExDuck", "neoexduck");
-	selNED->addItem("Neon ExDeath", "fancy");
-	selNED->addItem("Nero Exdeath", "nero_exdeath");
-	selNED->addItem("Omega Larboard Cannon", "omega_cannon");
-	selNED->addItem("Puzzle & Dragon", "pad");
-	selNED->addItem("Romancing SaGa 3 Boss", "rs3boss");
-	selNED->addItem("Shaq", "shaq");
-	selNED->addItem("Stupid Sexy Flanders", "flanders");
-	selNED->addItem("TargetNED", "targetned");
-	selNED->addItem("Territorial Oak", "tree");
-	selNED->addItem("Thomas the Tank Engine", "thomas");
-	selNED->addItem("Warriors of Light", "BizarroParty");
-	selNED->addItem("Warriors of Light (Fiesta)", "FiestaParty");
-	selNED->addItem("Yiazmat", "yiazmat");
-	selNED->addItem("Zeromus", "Zeromus");
+	for (int i = 0; i < NEDs.size(); i++) {
+		QPair<QString,QString> file = NEDs.at(i);
+
+		selNED->addItem(file.first, file.second);
+	}
 	layRandom->addRow("Neo ExDeath:", selNED);
 
 	chkRandom = new QCheckBox("Yes");
@@ -312,40 +279,26 @@ void Exdeath::initConfig(void) {
 }
 
 void Exdeath::selNED_index(int idx) {
-	imgPreview = new QPixmap(":/gallery/ned/" + selNED->itemData(idx).toString() + ".png");
+	QString filename = selNED->itemData(idx).toString();
+	if (!filename.startsWith(":")) {
+		filename.append(".png");
+	}
+	imgPreview = new QPixmap(filename);
 	txtPreview->setPixmap(*imgPreview);
 }
 
 void Exdeath::selMode_index(int idx) {
-	bool random_ok = false;
-	bool unlock_ok = false;
-	bool innate_ok = false;
-	bool sound_ok  = false;
-	bool ned_ok    = false;
+	if (idx == 0) return;
+	int ret = QMessageBox::warning(
+		this,
+		tr("Exdeath"),
+		tr("Using a mode other than Base may cause innate abilities, ability randomization, or Neo Exdeath graphic changes to break the game.\nAre you sure you want to do this?"),
+		QMessageBox::Yes | QMessageBox::No
+	);
 
-	if (idx < 3) {
-		unlock_ok = true;
-		innate_ok = true;
-		sound_ok  = true;
-		ned_ok    = true;
+	if (ret == QMessageBox::No) {
+		selMode->setCurrentIndex(0);
 	}
-	if (idx <= 1) {
-		random_ok = true;
-	}
-
-	chkRandom->setEnabled(random_ok);
-
-	chkUnlock->setEnabled(unlock_ok);
-	chkSound->setEnabled(sound_ok);
-
-	selNED->setEnabled(ned_ok);
-
-	chkPassages->setEnabled(innate_ok);
-	chkPitfalls->setEnabled(innate_ok);
-	chkLiteStep->setEnabled(innate_ok);
-	chkDash->setEnabled(innate_ok);
-	chkLearning->setEnabled(innate_ok);
-	innates_enabled = innate_ok;
 }
 
 void Exdeath::btnSave_clicked(bool trigger) {
@@ -411,7 +364,11 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	QString output = QFileDialog::getSaveFileName(
 		this,
 		"Select target ROM image",
+		#ifdef __WIN32__
+		QApplication::applicationDirPath(),
+		#else
 		QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation)[0],
+		#endif
 		"GBA ROM images (*.gba)"
 	);
 	QFile::copy(filename, output);
@@ -423,7 +380,7 @@ void Exdeath::btnApply_clicked(bool trigger) {
 	patches << ":/patches/fixnames.ips";
 
 	if (mode > 0) {
-		patches << ":/patches/" + selMode->itemData(mode).toString();
+		patches << selMode->itemData(mode).toString();
 	}
 	if (chkUnlock->isChecked() && chkUnlock->isEnabled()) {
 		patches << ":/patches/unlock.ips";

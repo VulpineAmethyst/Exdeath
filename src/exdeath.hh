@@ -15,6 +15,7 @@
 #include <QGroupBox>
 #include <QIODevice>
 #include <QLabel>
+#include <QList>
 #include <QPixmap>
 #include <QPushButton>
 #include <QRadioButton>
@@ -32,7 +33,7 @@
 
 class Exdeath : public QWidget {
 public:
-	Exdeath(QSettings *cfg, QWidget *parent = nullptr);
+	Exdeath(QSettings *cfg, QList<QPair<QString,QString> > modes, QList<QPair<QString,QString> > NEDs, QWidget *parent = nullptr);
 	~Exdeath();
 
 private:
@@ -105,9 +106,9 @@ private:
 	QPixmap *imgPreview;
 
 	// Initialization
-	void initMain(void);
+	void initMain(QList<QPair<QString,QString> > modes);
 	void initInnates(void);
-	void initRandom(void);
+	void initRandom(QList<QPair<QString,QString> > NEDs);
 	void initMulti(void);
 	void initPreview(void);
 	void initConfig(void);

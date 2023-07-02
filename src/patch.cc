@@ -25,34 +25,40 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "exdeath.hh"
 #include "patch.hh"
 
-#include <QApplication>
-#include <iostream>
+QList<QPair<QString,QString> > getPatchList(QDir dir, PatchType type) {
+	QList<QPair<QString,QString> > list;
 
-int main(int argc, char **argv) {
-	QApplication *app = new QApplication(argc, argv);
-	QApplication::setOrganizationName("Aerdan");
-	QApplication::setOrganizationDomain("aerdan.org");
-	QApplication::setApplicationName("Exdeath");
-	QApplication::setApplicationDisplayName("Exdeath");
-	QApplication::setApplicationVersion("0.10.0");
+	if (!dir.exists()) {
+		return list;
+	}
+	if (type == PatchType::Mode) {
+		dir.cd("modes");
+		if (!dir.exists()) {
+			return list;
+		}
+	} else if (type == PatchType::NED) {
+		dir.cd("ned");
+		if (!dir.exists()) {
+			return list;
+		}
+	}
+	dir.setFilter(QDir::Files | QDir::Readable);
+	dir.setSorting(QDir::Name);
 
-#ifdef __WIN32__
-	QString path = QApplication::applicationDirPath();
-#else
-	QString path = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation)[0];
-#endif
-	QDir dir = QDir(path);
-	std::cout << "Searching in" << path.toStdString() << std::endl;
-	QList<QPair<QString,QString> > modes = getPatchList(dir, PatchType::Mode);
-	QList<QPair<QString,QString> > NEDs = getPatchList(dir, PatchType::NED);
+	QFileInfoList files = dir.entryInfoList();
 
-	QSettings *cfg = new QSettings();
-	Exdeath *win = new Exdeath(cfg, modes, NEDs);
+	for (int i = 0; i < files.size(); i++) {
+		QFileInfo file = files.at(i);
 
-	win->show();
+		if (file.suffix() == "ips") {
+			QString filename = file.canonicalPath() + "/" + file.completeBaseName() + ".ips";
+			QPair<QString,QString> pair = {file.completeBaseName(), filename};
 
-	return app->exec();
+			list.append(pair);
+		}
+	}
+
+	return list;
 }
